@@ -1,4 +1,4 @@
-function NotFound() : JSX.Element {
+function NotFoundPage() : JSX.Element {
   return (
     <div className="page page--gray page--login">
       <main className="page__main page__main--login">
@@ -22,4 +22,4 @@ function NotFound() : JSX.Element {
   );
 }
 
-export default NotFound;
+export default NotFoundPage;
