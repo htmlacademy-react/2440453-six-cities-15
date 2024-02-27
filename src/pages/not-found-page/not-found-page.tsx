@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import { ROUTE_LIST } from '../../consts';
+
 function NotFoundPage() : JSX.Element {
   return (
     <div className="page page--gray page--login">
@@ -5,9 +8,9 @@ function NotFoundPage() : JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">404 PAGE NOT FOUND</h1>
-            <a>
+            <Link to={ROUTE_LIST.Root}>
               <h2>Вернуться на главную</h2>
-            </a>
+            </Link>
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
