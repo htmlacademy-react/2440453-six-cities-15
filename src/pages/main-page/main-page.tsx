@@ -1,4 +1,4 @@
-import OfferList from '../../components/offer-list/offer-list';
+import OfferListBlock from '../../components/offer-list-block/offer-list-block';
 import { TOfferList } from '../../types';
 
 type TMainPageProps = {
@@ -76,12 +76,7 @@ function MainPage({offerList}: TMainPageProps) : JSX.Element {
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <OfferList offerList={offerList}/>
-            <div className="cities__right-section">
-              <section className="cities__map map"></section>
-            </div>
-          </div>
+          <OfferListBlock offerList={offerList}/>
         </div>
       </main>
     </div>

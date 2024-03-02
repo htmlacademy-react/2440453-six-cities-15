@@ -3,14 +3,16 @@ import { calcRaitingPersent, calcBookmarkActiveClass, calcHiddenPremiumClass } f
 
 type TOfferCardProps = {
   offer: TOffer;
+  onMouseEnter?: React.MouseEventHandler;
+  onMouseLeave?: React.MouseEventHandler;
 }
-function OfferCard({offer}: TOfferCardProps): JSX.Element {
+function OfferCard({offer, onMouseEnter, onMouseLeave}: TOfferCardProps): JSX.Element {
   const {title, id, isFavorite, isPremium, previewImage, price, rating, type} = offer;
   const ratPersent = calcRaitingPersent(rating);
   const classNamePremium = calcHiddenPremiumClass(isPremium, 'place-card__mark');
   const classNameActive = calcBookmarkActiveClass(isFavorite, 'place-card__bookmark-button');
   return (
-    <article className="cities__card place-card" data-id={id}>
+    <article className="cities__card place-card" data-id={id} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className={classNamePremium}>
         <span>Premium</span>
       </div>
