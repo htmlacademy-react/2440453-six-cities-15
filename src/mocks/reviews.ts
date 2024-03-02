@@ -2,7 +2,7 @@
 
 import { TReviewList } from '../types';
 
-const REVIEW_LIST: TReviewList = [
+const REVIEWS_LIST: TReviewList = [
   {
     'id': 1,
     'user': {
@@ -44,4 +44,4 @@ const REVIEW_LIST: TReviewList = [
   },
 ];
 
-export default REVIEW_LIST;
+export default REVIEWS_LIST;
