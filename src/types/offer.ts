@@ -30,3 +30,8 @@ export type TOfferFull = TOffer & {
 }
 
 export type TOfferList = TOfferFull[];
+
+export type TCardSizes = {
+  width: string;
+  height: string;
+}

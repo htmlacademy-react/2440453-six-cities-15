@@ -1,24 +1,27 @@
-import { TOffer } from '../../types';
+import { TCardSizes, TOffer } from '../../types';
 import { calcRaitingPersent, calcBookmarkActiveClass, calcHiddenPremiumClass } from '../../utils';
 
 type TOfferCardProps = {
   offer: TOffer;
+  prefixClass: string;
+  cardSizes: TCardSizes;
   onMouseEnter?: React.MouseEventHandler;
   onMouseLeave?: React.MouseEventHandler;
 }
-function OfferCard({offer, onMouseEnter, onMouseLeave}: TOfferCardProps): JSX.Element {
+function OfferCard({offer, prefixClass, cardSizes, onMouseEnter, onMouseLeave}: TOfferCardProps): JSX.Element {
   const {title, id, isFavorite, isPremium, previewImage, price, rating, type} = offer;
+  const {width, height} = cardSizes;
   const ratPersent = calcRaitingPersent(rating);
   const classNamePremium = calcHiddenPremiumClass(isPremium, 'place-card__mark');
   const classNameActive = calcBookmarkActiveClass(isFavorite, 'place-card__bookmark-button');
   return (
-    <article className="cities__card place-card" data-id={id} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+    <article className={`${prefixClass}__card place-card`} data-id={id} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className={classNamePremium}>
         <span>Premium</span>
       </div>
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${prefixClass}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={previewImage} width={width} height={height} alt="Place image"/>
         </a>
       </div>
       <div className="place-card__info">
