@@ -4,6 +4,7 @@ import { TOfferList } from '../../types';
 type TMainPageProps = {
   offerList: TOfferList;
 }
+
 function MainPage({offerList}: TMainPageProps) : JSX.Element {
   return (
     <div className="page page--gray page--main">
