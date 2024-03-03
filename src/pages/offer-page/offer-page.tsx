@@ -1,4 +1,6 @@
 import Offer from '../../components/offer/offer';
+import { Link } from 'react-router-dom';
+import { ROUTE_LIST } from '../../consts';
 
 function OfferPage() : JSX.Element {//TODO: ближайшие места передавать и в оффер (на карту) и в ближайшие. Ближайшие вынесу позже, явно компонент
   return (
@@ -7,9 +9,9 @@ function OfferPage() : JSX.Element {//TODO: ближайшие места пер
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
+              <Link to={ROUTE_LIST.Root}>
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">

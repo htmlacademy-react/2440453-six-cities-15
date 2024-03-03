@@ -21,7 +21,7 @@ function CommentForm() :JSX.Element {
     setComment('');
   }
 
-  const ratings = Object.entries(RATING).reverse().map(([key, value]) => <RatingInput key={key} title={key} value={value} checked={rating.toString() >= value.toString()} onChange={handleRatingChange}/>);
+  const ratings = Object.entries(RATING).reverse().map(([key, value]) => <RatingInput key={key} title={key} value={value} checked={rating.toString() === value.toString()} onChange={handleRatingChange}/>);
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
