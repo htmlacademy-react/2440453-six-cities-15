@@ -17,7 +17,7 @@ function calcRaitingPersent(rating:number): string {
 }
 
 function randomCity(): TCityName {
-  const num = Math.round(Math.random() * (CITY_LIST.length));
+  const num = Math.floor(Math.random() * (CITY_LIST.length));
   return CITY_LIST[num];
 }
 
