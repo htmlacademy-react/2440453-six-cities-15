@@ -1,6 +1,6 @@
 import Offer from '../../components/offer/offer';
 
-function OfferPage() : JSX.Element {
+function OfferPage() : JSX.Element {//TODO: ближайшие места передавать и в оффер (на карту) и в ближайшие. Ближайшие вынесу позже, явно компонент
   return (
     <div className="page">
       <header className="header">

@@ -1,6 +1,6 @@
 import ReviewBlock from '../../components/review-block/review-block';
 
-function Offer() : JSX.Element {
+function Offer() : JSX.Element {//TODO: галерея, карта, основная инфа, список плюшек, хостесс - в компоненты
   return(
     <section className="offer">
       <div className="offer__gallery-container container">
