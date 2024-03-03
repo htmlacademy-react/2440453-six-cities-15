@@ -1,3 +1,6 @@
+import { CITY_LIST } from '../consts';
+import { TCityName } from '../types/city';
+
 function calcHiddenPremiumClass(isPremium: boolean, className: string): string {
   const classHiddenPremium = !isPremium ? ' visually-hidden' : '';
   return (`${className}${classHiddenPremium}`);
@@ -13,4 +16,9 @@ function calcRaitingPersent(rating:number): string {
   return (`${roundRating * 20}%`);
 }
 
-export { calcHiddenPremiumClass, calcRaitingPersent, calcBookmarkActiveClass };
+function randomCity(): TCityName {
+  const num = Math.round(Math.random() * (CITY_LIST.length));
+  return CITY_LIST[num];
+}
+
+export { calcHiddenPremiumClass, calcRaitingPersent, calcBookmarkActiveClass, randomCity };

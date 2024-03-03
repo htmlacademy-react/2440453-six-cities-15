@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { ROUTE_LIST } from '../../consts';
+import { randomCity } from '../../utils';
 
 function LoginPage() : JSX.Element {
+  const city = randomCity();
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -35,7 +37,7 @@ function LoginPage() : JSX.Element {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <Link to={ROUTE_LIST.Root} className="locations__item-link">
-                <span>Amsterdam</span>
+                <span>{city}</span>
               </Link>
             </div>
           </section>
