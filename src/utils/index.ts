@@ -9,7 +9,8 @@ function calcBookmarkActiveClass(isFavorite: boolean, className: string): string
 }
 
 function calcRaitingPersent(rating:number): string {
-  return (`${Math.round(+rating * 100 / 5)}%`);
+  const roundRating = Math.round(+rating);
+  return (`${roundRating * 20}%`);
 }
 
 export { calcHiddenPremiumClass, calcRaitingPersent, calcBookmarkActiveClass };

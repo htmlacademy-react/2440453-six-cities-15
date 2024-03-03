@@ -12,6 +12,7 @@ function OfferCard({offer, prefixClass, cardSizes, onMouseEnter, onMouseLeave}: 
   const {title, id, isFavorite, isPremium, previewImage, price, rating, type} = offer;
   const {width, height} = cardSizes;
   const ratPersent = calcRaitingPersent(rating);
+  console.log(ratPersent);
   const classNamePremium = calcHiddenPremiumClass(isPremium, 'place-card__mark');
   const classNameActive = calcBookmarkActiveClass(isFavorite, 'place-card__bookmark-button');
   return (
