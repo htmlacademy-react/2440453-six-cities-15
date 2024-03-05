@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { ROUTE_LIST } from '../../consts';
+import { randomCity } from '../../utils';
 
 function NotFoundPage() : JSX.Element {
+  const city = randomCity();
   return (
     <div className="page page--gray page--login">
       <main className="page__main page__main--login">
@@ -14,9 +16,9 @@ function NotFoundPage() : JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+              <Link to={ROUTE_LIST.Root} className="locations__item-link">
+                <span>{city}</span>
+              </Link>
             </div>
           </section>
         </div>

@@ -1,9 +1,12 @@
-import OfferList from '../../components/offer-list/offer-list';
+import { Link } from 'react-router-dom';
+import OfferListBlock from '../../components/offer-list-block/offer-list-block';
 import { TOfferList } from '../../types';
+import { ROUTE_LIST } from '../../consts';
 
 type TMainPageProps = {
   offerList: TOfferList;
 }
+
 function MainPage({offerList}: TMainPageProps) : JSX.Element {
   return (
     <div className="page page--gray page--main">
@@ -11,9 +14,9 @@ function MainPage({offerList}: TMainPageProps) : JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
+              <Link to={ROUTE_LIST.Root} className="header__logo-link header__logo-link--active">
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -75,12 +78,7 @@ function MainPage({offerList}: TMainPageProps) : JSX.Element {
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <OfferList offerList={offerList}/>
-            <div className="cities__right-section">
-              <section className="cities__map map"></section>
-            </div>
-          </div>
+          <OfferListBlock offerList={offerList}/>
         </div>
       </main>
     </div>

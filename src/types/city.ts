@@ -1,3 +1,7 @@
+import { CITY_LIST } from '../consts';
+
+export type TCityName = typeof CITY_LIST[number];
+
 export type TLocation = {
   latitude: number;
   longitude: number;
@@ -6,5 +10,7 @@ export type TLocation = {
 
 export type TCity = {
 location: TLocation;
-name: string;
+name: TCityName;
 }
+
+
