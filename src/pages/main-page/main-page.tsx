@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
 import OfferListBlock from '../../components/offer-list-block/offer-list-block';
 import { TOfferList } from '../../types';
-import { ROUTE_LIST } from '../../consts';
+import { DEFAULT_CITY, ROUTE_LIST } from '../../consts';
 
 type TMainPageProps = {
   offerList: TOfferList;
 }
 
 function MainPage({offerList}: TMainPageProps) : JSX.Element {
+  const cityName = DEFAULT_CITY.name;
+  const cityOffersList = offerList.filter((item) => item.city.name === cityName);
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -78,7 +80,7 @@ function MainPage({offerList}: TMainPageProps) : JSX.Element {
           </section>
         </div>
         <div className="cities">
-          <OfferListBlock offerList={offerList}/>
+          <OfferListBlock offerList={cityOffersList}/>
         </div>
       </main>
     </div>

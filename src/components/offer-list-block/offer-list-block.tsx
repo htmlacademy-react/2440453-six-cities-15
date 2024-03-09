@@ -1,5 +1,6 @@
 import OfferList from '../offer-list/offer-list';
 import SortBlock from '../sort-block/sort-block';
+import Map from '../map/map';
 import { TOfferList } from '../../types';
 import { useState } from 'react';
 import { SIZES } from '../../consts';
@@ -28,7 +29,7 @@ function OfferListBlock({offerList}: TOfferListBlockProps) : JSX.Element {
         <OfferList offerList={offerList} listClassName='cities__places-list places__list tabs__content' cardSize={SIZES.offers} handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave}/>
       </section>
       <div className="cities__right-section">
-        <section className="cities__map map" data-id={activeOfferId}></section>
+        <Map activeOfferId={activeOfferId} offers={offerList}/>
       </div>
     </div>
   );

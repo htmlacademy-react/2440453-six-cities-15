@@ -1,5 +1,6 @@
 import { TOfferList } from '../types';
 
+
 const OFFERS_LIST: TOfferList = [
   {
     'city': {
