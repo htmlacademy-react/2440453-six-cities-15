@@ -48,16 +48,18 @@ function Map({offers, activeOfferId}: TMapProps): JSX.Element {
               icon: offer.id === activeOfferId ? currentCustomIcon : defaultCustomIcon,
             })
             .addTo(markerLayer);
-        })
-    }
-    ;
+        });
+      }
     }
   }, [map, offers, activeOfferId, currentCustomIcon, defaultCustomIcon]);
 
+  if (offers) {
+    return (
+      <section ref={mapRef} data-id={activeOfferId} className="cities__map map"></section>
+    );
+  }
   return (
-  <>
-    {offers && <section ref={mapRef} data-id={activeOfferId} className="cities__map map"></section>}
-  </>
+    <section className="cities__map map"></section>
   );
 }
 

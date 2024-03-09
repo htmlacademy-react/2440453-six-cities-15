@@ -1,6 +1,5 @@
 import { TOfferList } from '../types';
 
-
 const OFFERS_LIST: TOfferList = [
   {
     'city': {
@@ -797,6 +796,7 @@ const OFFERS_LIST: TOfferList = [
     'id': '45'
   },
 ];
+
 
 export {
   OFFERS_LIST
