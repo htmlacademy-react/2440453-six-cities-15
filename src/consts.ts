@@ -1,4 +1,4 @@
-import { TCardSizes } from './types';
+import { TCardSizes, TCity } from './types';
 
 enum AuthorizationStatus {
   Auth = 'AUTH',
@@ -35,8 +35,21 @@ const RATING = {
   'perfect':'5',
 } as const;
 
+const DEFAULT_CITY: TCity = {
+  name: 'Amsterdam',
+  location: {
+    latitude: 52.37454,
+    longitude: 4.897976,
+    zoom: 13
+  },
+} as const;
+
 const MIN_COMMENT_LENGHT = 50;
 const MAX_COMMENT_LENGHT = 300;
+
+const URL_MARKER_DEFAULT = '/img/pin.svg';
+const URL_MARKER_CURRENT = '/img/pin-active.svg';
+
 
 export {
   AuthorizationStatus,
@@ -46,6 +59,9 @@ export {
   RATING,
   MIN_COMMENT_LENGHT,
   MAX_COMMENT_LENGHT,
+  DEFAULT_CITY,
+  URL_MARKER_DEFAULT,
+  URL_MARKER_CURRENT,
 };
 
 

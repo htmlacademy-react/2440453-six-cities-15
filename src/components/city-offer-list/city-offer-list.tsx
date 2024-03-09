@@ -1,6 +1,6 @@
 import { ROUTE_LIST, SIZES } from '../../consts';
 import { TOfferList } from '../../types';
-import { TCityName } from '../../types/city';
+import { TCityName } from '../../types';
 import OfferList from '../offer-list/offer-list';
 import { Link } from 'react-router-dom';
 

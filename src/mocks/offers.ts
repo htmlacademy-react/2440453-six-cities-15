@@ -797,6 +797,7 @@ const OFFERS_LIST: TOfferList = [
   },
 ];
 
+
 export {
   OFFERS_LIST
 };

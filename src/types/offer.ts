@@ -9,7 +9,7 @@ export type THost = {
 
 export type TOffer = {
   title: string;
-  location?: TLocation;
+  location: TLocation;
   id: string;
   isFavorite: boolean;
   isPremium: boolean;
@@ -17,7 +17,7 @@ export type TOffer = {
   price: number;
   rating: number;
   type: string;
-  city?: TCity;
+  city: TCity;
 }
 
 export type TOfferFull = TOffer & {
