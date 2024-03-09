@@ -1,4 +1,5 @@
 import { CITY_LIST } from '../consts';
+import { TOfferList } from '../types';
 import { TCityName } from '../types/city';
 
 function calcHiddenPremiumClass(isPremium: boolean, className: string): string {
@@ -21,4 +22,12 @@ function randomCity(): TCityName {
   return CITY_LIST[num];
 }
 
-export { calcHiddenPremiumClass, calcRaitingPersent, calcBookmarkActiveClass, randomCity };
+function getNearbyOffers(offersList: TOfferList, count: number): TOfferList {
+  return offersList.slice(0, count);
+}
+
+function getCount(listCount:number, maxCount:number): number {
+  return (listCount < maxCount ? listCount : maxCount);
+}
+
+export { calcHiddenPremiumClass, calcRaitingPersent, calcBookmarkActiveClass, randomCity, getNearbyOffers, getCount };
