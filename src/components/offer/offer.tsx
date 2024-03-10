@@ -1,40 +1,34 @@
 import ReviewBlock from '../../components/review-block/review-block';
+import Map from '../map/map';
+import { TOfferFull, TOfferList } from '../../types';
+import { calcBookmarkActiveClass, calcHiddenPremiumClass } from '../../utils';
+import GoodsList from './goods-list';
+import Gallery from '../gallery/gallery';
+import HostInfo from './host-info';
+import { MAP_CENTER_TYPES } from '../../consts';
 
-function Offer() : JSX.Element {//TODO: галерея, карта, основная инфа, список плюшек, хостесс - в компоненты
+type TOfferProps = {
+  offer: TOfferFull;
+  nearbyOffers: TOfferList;
+}
+
+function Offer({offer, nearbyOffers} : TOfferProps) : JSX.Element {//TODO: основная инфа, ближайшие резать до передачи
+  const {title, id, goods, isPremium, isFavorite, images, host, description} = offer;
+  const classNamePremium = calcHiddenPremiumClass(isPremium, 'offer__mark');
+  const classNameActive = calcBookmarkActiveClass(isFavorite, 'offer__bookmark-button');
   return(
     <section className="offer">
-      <div className="offer__gallery-container container">
-        <div className="offer__gallery">
-          <div className="offer__image-wrapper">
-            <img className="offer__image" src="img/room.jpg" alt="Photo studio"/>
-          </div>
-          <div className="offer__image-wrapper">
-            <img className="offer__image" src="img/apartment-01.jpg" alt="Photo studio"/>
-          </div>
-          <div className="offer__image-wrapper">
-            <img className="offer__image" src="img/apartment-02.jpg" alt="Photo studio"/>
-          </div>
-          <div className="offer__image-wrapper">
-            <img className="offer__image" src="img/apartment-03.jpg" alt="Photo studio"/>
-          </div>
-          <div className="offer__image-wrapper">
-            <img className="offer__image" src="img/studio-01.jpg" alt="Photo studio"/>
-          </div>
-          <div className="offer__image-wrapper">
-            <img className="offer__image" src="img/apartment-01.jpg" alt="Photo studio"/>
-          </div>
-        </div>
-      </div>
+      {images && <Gallery images={images}/>}
       <div className="offer__container container">
         <div className="offer__wrapper">
-          <div className="offer__mark">
+          <div className={classNamePremium}>
             <span>Premium</span>
           </div>
           <div className="offer__name-wrapper">
             <h1 className="offer__name">
-              Beautiful &amp; luxurious studio at great location
+              {title}
             </h1>
-            <button className="offer__bookmark-button button" type="button">
+            <button className={`${classNameActive} button`} type="button">
               <svg className="offer__bookmark-icon" width="31" height="33">
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>
@@ -65,65 +59,13 @@ function Offer() : JSX.Element {//TODO: галерея, карта, основн
           </div>
           <div className="offer__inside">
             <h2 className="offer__inside-title">What&apos;s inside</h2>
-            <ul className="offer__inside-list">
-              <li className="offer__inside-item">
-                Wi-Fi
-              </li>
-              <li className="offer__inside-item">
-                Washing machine
-              </li>
-              <li className="offer__inside-item">
-                Towels
-              </li>
-              <li className="offer__inside-item">
-                Heating
-              </li>
-              <li className="offer__inside-item">
-                Coffee machine
-              </li>
-              <li className="offer__inside-item">
-                Baby seat
-              </li>
-              <li className="offer__inside-item">
-                Kitchen
-              </li>
-              <li className="offer__inside-item">
-                Dishwasher
-              </li>
-              <li className="offer__inside-item">
-                Cabel TV
-              </li>
-              <li className="offer__inside-item">
-                Fridge
-              </li>
-            </ul>
+            {goods && <GoodsList goodsList={goods}/>}
           </div>
-          <div className="offer__host">
-            <h2 className="offer__host-title">Meet the host</h2>
-            <div className="offer__host-user user">
-              <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                <img className="offer__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar"/>
-              </div>
-              <span className="offer__user-name">
-                Angelina
-              </span>
-              <span className="offer__user-status">
-                Pro
-              </span>
-            </div>
-            <div className="offer__description">
-              <p className="offer__text">
-                A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-              </p>
-              <p className="offer__text">
-                An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
-              </p>
-            </div>
-          </div>
+          {host && <HostInfo host={host} description={description}/>}
           <ReviewBlock/>
         </div>
       </div>
-      <section className="offer__map map"></section>
+      <Map activeOfferId={id} offers={nearbyOffers} prefixName={'offer'} type={MAP_CENTER_TYPES[1]}/>
     </section>
   );
 }

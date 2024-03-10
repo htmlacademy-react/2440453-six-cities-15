@@ -20,7 +20,7 @@ function CityOfferList({cityName, offersList}: TCityOfferListProps) : JSX.Elemen
           </Link>
         </div>
       </div>
-      <OfferList offerList={offersList} listClassName='favorites__places' cardSize={cardSize}/>
+      <OfferList offerList={offersList} listClassName='favorites__places' cardSize={cardSize} prefixClass={'favorites'}/>
     </li>
   );
 }

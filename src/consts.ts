@@ -27,6 +27,8 @@ const SIZES = {
 
 const CITY_LIST = ['Paris', 'Cologne', 'Brussels', 'Amsterdam','Hamburg', 'Dusseldorf', ] as const;
 
+const MAP_CENTER_TYPES = ['city', 'offer'] as const;
+
 const RATING = {
   'terribly':'1',
   'badly':'2',
@@ -50,6 +52,9 @@ const MAX_COMMENT_LENGHT = 300;
 const URL_MARKER_DEFAULT = '/img/pin.svg';
 const URL_MARKER_CURRENT = '/img/pin-active.svg';
 
+const MAX_GALLERY_SIZE = 6;
+const MAX_NEAREST_OFFERS_COUNT = 3;
+
 
 export {
   AuthorizationStatus,
@@ -62,6 +67,9 @@ export {
   DEFAULT_CITY,
   URL_MARKER_DEFAULT,
   URL_MARKER_CURRENT,
+  MAX_GALLERY_SIZE,
+  MAX_NEAREST_OFFERS_COUNT,
+  MAP_CENTER_TYPES,
 };
 
 
