@@ -16,7 +16,7 @@ function App({offerList}: TAppProps) : JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={ROUTE_LIST.Root} element={<MainPage offerList={offerList}/>}/>
+        <Route path={ROUTE_LIST.Root} element={<MainPage/>}/>
         <Route path={ROUTE_LIST.Favourites} element={<PrivateRoute authStatus={AuthorizationStatus.Auth}><FavoritesPage offerList={offerList}/></PrivateRoute>}/>
         <Route path={ROUTE_LIST.Login} element={<PrivateRoute authStatus={AuthorizationStatus.NoAuth} reverseOperation><LoginPage/></PrivateRoute>}/>
         <Route path={ROUTE_LIST.Offer} element={<OfferPage/>}/>
