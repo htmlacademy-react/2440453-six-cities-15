@@ -1,10 +1,10 @@
-import { TCityName } from "../../types";
+import { TCityName } from '../../types';
 
-type TOfferListBlockEmptyProps = {
+type TBlockEmptyProps = {
   activeCity: TCityName;
 }
 
-function OfferListBlockEmpty({activeCity}: TOfferListBlockEmptyProps) : JSX.Element {
+function BlockEmpty({activeCity}: TBlockEmptyProps) : JSX.Element {
   return (
     <div className="cities__status-wrapper tabs__content">
       <b className="cities__status">No places to stay available</b>
@@ -13,4 +13,4 @@ function OfferListBlockEmpty({activeCity}: TOfferListBlockEmptyProps) : JSX.Elem
   );
 }
 
-export default OfferListBlockEmpty;
+export default BlockEmpty;

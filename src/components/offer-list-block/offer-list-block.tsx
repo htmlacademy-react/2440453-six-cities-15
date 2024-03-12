@@ -1,11 +1,9 @@
-import OfferList from '../offer-list/offer-list';
-import SortBlock from '../sort-block/sort-block';
 import Map from '../map/map';
 import { TCityName, TOfferList } from '../../types';
 import { useState } from 'react';
-import { MAP_CENTER_TYPES, SIZES } from '../../consts';
-import OfferListBlockEmpty from './offer-list-block-empty';
-import { setCorrectEnding } from '../../utils';
+import { MAP_CENTER_TYPES } from '../../consts';
+import BlockEmpty from './block-empty';
+import BlockFull from './block-full';
 
 type TOfferListBlockProps = {
   offerList: TOfferList;
@@ -18,11 +16,6 @@ function OfferListBlock({offerList, activeCity}: TOfferListBlockProps) : JSX.Ele
   const emptyClassName = isEmpty ? ' cities__places-container--empty' : '';
   const sectionClass = isEmpty ? 'cities__no-places' : 'cities__places places';
 
-  const offersBlock : JSX.Element = isEmpty ? <OfferListBlockEmpty activeCity={activeCity}/> : <><h2 className="visually-hidden">Places</h2>
-  <b className="places__found">{offerList.length} place{setCorrectEnding(offerList.length)} to stay in {activeCity}</b>
-  <SortBlock/>
-  <OfferList offerList={offerList} listClassName={'cities__places-list places__list tabs__content'} cardSize={SIZES.offers} prefixClass={'cities'} handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave}/></>
-
   function handleMouseEnter(id:string) {
     setActiveOfferId(id);
   }
@@ -30,6 +23,9 @@ function OfferListBlock({offerList, activeCity}: TOfferListBlockProps) : JSX.Ele
   function handleMouseLeave() {
     setActiveOfferId(null);
   }
+
+  const offersBlock : JSX.Element = isEmpty ? <BlockEmpty activeCity={activeCity}/> : <BlockFull offerList={offerList} activeCity={activeCity} handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave}/>;
+
 
   return(
     <div className="cities">

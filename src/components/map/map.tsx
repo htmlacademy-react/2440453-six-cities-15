@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import useMap from '../../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
 import leaflet, { layerGroup } from 'leaflet';
-import { CITY_LIST_LOCATION, DEFAULT_CITY, MAP_CENTER_TYPES, URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../consts';
+import { CITY_LIST_LOCATION, MAP_CENTER_TYPES, URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../consts';
 import { TCityName, TMapCenterType, TOfferList } from '../../types';
 
 type TMapProps = {
