@@ -2,20 +2,22 @@ import { useRef, useEffect } from 'react';
 import useMap from '../../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
 import leaflet, { layerGroup } from 'leaflet';
-import { DEFAULT_CITY, MAP_CENTER_TYPES, URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../consts';
-import { TMapCenterType, TOfferList } from '../../types';
+import { CITY_LIST_LOCATION, DEFAULT_CITY, MAP_CENTER_TYPES, URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../consts';
+import { TCityName, TMapCenterType, TOfferList } from '../../types';
 
 type TMapProps = {
   activeOfferId: string | null;
   offers: TOfferList;
   prefixName: string;
   type: TMapCenterType;
+  cityName? : TCityName;
 };
 
-function Map({offers, activeOfferId, prefixName, type}: TMapProps): JSX.Element {
+function Map({offers, activeOfferId, prefixName, type, cityName}: TMapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef);
-  const center = type === MAP_CENTER_TYPES[0] ? DEFAULT_CITY.location : offers.find((item) => item.id === activeOfferId)?.location;
+  const city = CITY_LIST_LOCATION.find((item) => item.name === cityName);
+  const center = type === MAP_CENTER_TYPES[0] && city ? city.location : offers.find((item) => item.id === activeOfferId)?.location;
 
   const defaultCustomIcon = leaflet.icon({
     iconUrl: URL_MARKER_DEFAULT,

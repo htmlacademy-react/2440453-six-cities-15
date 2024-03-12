@@ -50,7 +50,7 @@ function MainPage() : JSX.Element {
 
       <main className="page__main page__main--index">
         <CitiesList activeCity={cityName} handleCityClick={handleCityClick}/>
-        <OfferListBlock offerList={cityOffersList}/>
+        <OfferListBlock offerList={cityOffersList} activeCity={cityName}/>
       </main>
     </div>
   );
