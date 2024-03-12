@@ -12,13 +12,15 @@ function MainPage() : JSX.Element {
   const cityOffersList = useAppSelector((state) => state.offers).filter((item) => item.city.name === cityName);
   const dispatch = useAppDispatch();
 
+  const mainPageClass = cityOffersList.length === 0 ? 'page__main page__main--index page__main--index-empty' : 'page page--gray page--main';
+
   const handleCityClick = (isSelected: boolean, newCity: TCityName) => {
     if (!isSelected) {
       dispatch(changeCity({city: newCity}));
     }
   };
   return (
-    <div className="page page--gray page--main">
+    <div className={mainPageClass}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
