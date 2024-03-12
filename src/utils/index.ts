@@ -30,4 +30,12 @@ function getCount(listCount:number, maxCount:number): number {
   return (listCount < maxCount ? listCount : maxCount);
 }
 
-export { calcHiddenPremiumClass, calcRaitingPersent, calcBookmarkActiveClass, randomCity, getNearbyOffers, getCount };
+function setCorrectEnding (count: number) : string {
+  if (count === 1) {
+    return '';
+  } else {
+    return 's';
+  }
+}
+
+export { calcHiddenPremiumClass, calcRaitingPersent, calcBookmarkActiveClass, randomCity, getNearbyOffers, getCount, setCorrectEnding, };

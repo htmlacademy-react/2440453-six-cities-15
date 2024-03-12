@@ -57,13 +57,8 @@ function Map({offers, activeOfferId, prefixName, type, cityName}: TMapProps): JS
     }
   }, [map, offers, activeOfferId, currentCustomIcon, defaultCustomIcon]);
 
-  if (offers) {
-    return (
-      <section ref={mapRef} data-id={activeOfferId} className={`${prefixName}__map map`}></section>
-    );
-  }
   return (
-    <section className={`${prefixName}__map map`}></section>
+    <section ref={mapRef} data-id={activeOfferId} className={`${prefixName}__map map`}></section>
   );
 }
 
