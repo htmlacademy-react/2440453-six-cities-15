@@ -2,12 +2,21 @@ import { Link } from 'react-router-dom';
 import OfferListBlock from '../../components/offer-list-block/offer-list-block';
 import { ROUTE_LIST } from '../../consts';
 import CitiesList from '../../components/cities-list/cities-list';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { TCityName } from '../../types';
+import { changeCity } from '../../store/action';
 
 
 function MainPage() : JSX.Element {
   const cityName = useAppSelector((state) => state.city);
   const cityOffersList = useAppSelector((state) => state.offers).filter((item) => item.city.name === cityName);
+  const dispatch = useAppDispatch();
+
+  const handleCityClick = (isSelected: boolean, newCity: TCityName) => {
+    if (!isSelected) {
+      dispatch(changeCity({city: newCity}));
+    }
+  };
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -40,7 +49,7 @@ function MainPage() : JSX.Element {
       </header>
 
       <main className="page__main page__main--index">
-        <CitiesList activeCity={cityName}/>
+        <CitiesList activeCity={cityName} handleCityClick={handleCityClick}/>
         <OfferListBlock offerList={cityOffersList}/>
       </main>
     </div>

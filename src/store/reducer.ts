@@ -16,6 +16,6 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fullOffersList, (state, action) => {
       state.offers = action.payload;
-    })
+    });
 });
 

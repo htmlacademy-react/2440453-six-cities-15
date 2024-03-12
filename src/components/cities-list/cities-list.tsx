@@ -4,10 +4,11 @@ import CitiesItem from './cities-item';
 
 type TCitiesListProps = {
   activeCity: TCityName;
+  handleCityClick: (isSelected: boolean, newCity: TCityName) => void;
 }
 
-function CitiesList({activeCity}: TCitiesListProps) : JSX.Element {
-  const cities = CITY_LIST.map((item) => <CitiesItem isActive={item === activeCity} name={item}/>);
+function CitiesList({activeCity, handleCityClick}: TCitiesListProps) : JSX.Element {
+  const cities = CITY_LIST.map((item) => <CitiesItem key={item} isActive={item === activeCity} name={item} onClick={handleCityClick}/>);
   return(
     <>
       <h1 className="visually-hidden">Cities</h1>

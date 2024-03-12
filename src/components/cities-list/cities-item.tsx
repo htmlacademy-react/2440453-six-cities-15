@@ -3,15 +3,16 @@ import { TCityName } from '../../types';
 type TCitiesItemProps = {
   isActive: boolean;
   name: TCityName;
+  onClick: (selectCity: boolean, newCity: TCityName) => void;
 }
 
-function CitiesItem({isActive, name}: TCitiesItemProps) : JSX.Element {
-  const activeClass = isActive ? " tabs__item--active" : "";
+function CitiesItem({isActive, name, onClick}: TCitiesItemProps) : JSX.Element {
+  const activeClass = isActive ? ' tabs__item--active' : '';
   return (
     <li className="locations__item">
-      <a className={`locations__item-link tabs__item${activeClass}`} href="#">
+      <div className={`locations__item-link tabs__item${activeClass}`} onClick={() => onClick(isActive, name)}>
         <span>{name}</span>
-      </a>
+      </div>
     </li>
   );
 }
