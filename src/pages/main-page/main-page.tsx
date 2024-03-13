@@ -1,17 +1,26 @@
 import { Link } from 'react-router-dom';
 import OfferListBlock from '../../components/offer-list-block/offer-list-block';
-import { TOfferList } from '../../types';
-import { DEFAULT_CITY, ROUTE_LIST } from '../../consts';
+import { ROUTE_LIST } from '../../consts';
+import CitiesList from '../../components/cities-list/cities-list';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { TCityName } from '../../types';
+import { changeCity } from '../../store/action';
 
-type TMainPageProps = {
-  offerList: TOfferList;
-}
 
-function MainPage({offerList}: TMainPageProps) : JSX.Element {
-  const cityName = DEFAULT_CITY.name;
-  const cityOffersList = offerList.filter((item) => item.city.name === cityName);
+function MainPage() : JSX.Element {
+  const cityName = useAppSelector((state) => state.city);
+  const cityOffersList = useAppSelector((state) => state.offers).filter((item) => item.city.name === cityName);
+  const dispatch = useAppDispatch();
+
+  const mainPageClass = cityOffersList.length === 0 ? 'page__main page__main--index page__main--index-empty' : 'page page--gray page--main';
+
+  const handleCityClick = (isSelected: boolean, newCity: TCityName) => {
+    if (!isSelected) {
+      dispatch(changeCity({city: newCity}));
+    }
+  };
   return (
-    <div className="page page--gray page--main">
+    <div className={mainPageClass}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -42,46 +51,8 @@ function MainPage({offerList}: TMainPageProps) : JSX.Element {
       </header>
 
       <main className="page__main page__main--index">
-        <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
-        </div>
-        <div className="cities">
-          <OfferListBlock offerList={cityOffersList}/>
-        </div>
+        <CitiesList activeCity={cityName} handleCityClick={handleCityClick}/>
+        <OfferListBlock offerList={cityOffersList} activeCity={cityName}/>
       </main>
     </div>
   );

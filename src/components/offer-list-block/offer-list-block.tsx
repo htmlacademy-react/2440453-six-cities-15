@@ -1,16 +1,20 @@
-import OfferList from '../offer-list/offer-list';
-import SortBlock from '../sort-block/sort-block';
 import Map from '../map/map';
-import { TOfferList } from '../../types';
+import { TCityName, TOfferList } from '../../types';
 import { useState } from 'react';
-import { MAP_CENTER_TYPES, SIZES } from '../../consts';
+import { MAP_CENTER_TYPES } from '../../consts';
+import BlockEmpty from './block-empty';
+import BlockFull from './block-full';
 
 type TOfferListBlockProps = {
   offerList: TOfferList;
+  activeCity: TCityName;
 }
 
-function OfferListBlock({offerList}: TOfferListBlockProps) : JSX.Element {
+function OfferListBlock({offerList, activeCity}: TOfferListBlockProps) : JSX.Element {//TODO: как то упростить. выглядит как ужас. И карта не как картинка
+  const isEmpty: boolean = offerList.length === 0;
   const [activeOfferId, setActiveOfferId] = useState<string|null>(null);
+  const emptyClassName = isEmpty ? ' cities__places-container--empty' : '';
+  const sectionClass = isEmpty ? 'cities__no-places' : 'cities__places places';
 
   function handleMouseEnter(id:string) {
     setActiveOfferId(id);
@@ -20,16 +24,18 @@ function OfferListBlock({offerList}: TOfferListBlockProps) : JSX.Element {
     setActiveOfferId(null);
   }
 
+  const offersBlock : JSX.Element = isEmpty ? <BlockEmpty activeCity={activeCity}/> : <BlockFull offerList={offerList} activeCity={activeCity} handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave}/>;
+
+
   return(
-    <div className="cities__places-container container">
-      <section className="cities__places places">
-        <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{offerList.length} places to stay in Amsterdam</b>
-        <SortBlock/>
-        <OfferList offerList={offerList} listClassName={'cities__places-list places__list tabs__content'} cardSize={SIZES.offers} prefixClass={'cities'} handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave}/>
-      </section>
-      <div className="cities__right-section">
-        <Map activeOfferId={activeOfferId} offers={offerList} prefixName={'cities'} type={MAP_CENTER_TYPES[0]}/>
+    <div className="cities">
+      <div className={`cities__places-container${emptyClassName} container`}>
+        <section className={sectionClass}>
+          {offersBlock}
+        </section>
+        <div className="cities__right-section">
+          {offerList.length > 0 && <Map activeOfferId={activeOfferId} offers={offerList} prefixName={'cities'} type={MAP_CENTER_TYPES[0]} cityName={activeCity}/>}
+        </div>
       </div>
     </div>
   );
