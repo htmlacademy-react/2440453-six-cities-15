@@ -6,12 +6,10 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { TCityName } from '../../types';
 import { changeCity } from '../../store/action';
 
-
 function MainPage() : JSX.Element {
+  const dispatch = useAppDispatch();
   const cityName = useAppSelector((state) => state.city);
   const cityOffersList = useAppSelector((state) => state.offers).filter((item) => item.city.name === cityName);
-  const dispatch = useAppDispatch();
-
   const mainPageClass = cityOffersList.length === 0 ? 'page__main page__main--index page__main--index-empty' : 'page page--gray page--main';
 
   const handleCityClick = (isSelected: boolean, newCity: TCityName) => {

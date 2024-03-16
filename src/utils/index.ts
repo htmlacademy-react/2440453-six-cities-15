@@ -1,4 +1,4 @@
-import { CITY_LIST } from '../consts';
+import { CITY_LIST, SortItems } from '../consts';
 import { TOfferList } from '../types';
 import { TCityName } from '../types/city';
 
@@ -38,4 +38,17 @@ function setCorrectEnding (count: number) : string {
   }
 }
 
-export { calcHiddenPremiumClass, calcRaitingPersent, calcBookmarkActiveClass, randomCity, getNearbyOffers, getCount, setCorrectEnding, };
+function sortOfferList (offerList: TOfferList, sortType: SortItems) : TOfferList {
+  switch (sortType) {
+    case SortItems.High2Low:
+      return offerList.sort((a, b) => -(a.price - b.price));
+    case SortItems.Popular:
+      return offerList.sort((a, b) => a.rating - b.rating);
+    case SortItems.Low2High:
+      return offerList.sort((a, b) => a.price - b.price);
+    case SortItems.TopRatedFirst:
+      return offerList.sort((a, b) => b.rating - a.rating);
+  }
+}
+
+export { calcHiddenPremiumClass, calcRaitingPersent, calcBookmarkActiveClass, randomCity, getNearbyOffers, getCount, setCorrectEnding, sortOfferList };
