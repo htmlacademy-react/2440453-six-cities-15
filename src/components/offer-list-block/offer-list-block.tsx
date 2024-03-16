@@ -1,16 +1,17 @@
 import Map from '../map/map';
 import { TCityName, TOfferList } from '../../types';
 import { useState } from 'react';
-import { MAP_CENTER_TYPES } from '../../consts';
+import { MAP_CENTER_TYPES, SortItems } from '../../consts';
 import BlockEmpty from './block-empty';
 import BlockFull from './block-full';
 
 type TOfferListBlockProps = {
   offerList: TOfferList;
   activeCity: TCityName;
+  activeSort: SortItems;
 }
 
-function OfferListBlock({offerList, activeCity}: TOfferListBlockProps) : JSX.Element {//TODO: как то упростить. выглядит как ужас. И карта не как картинка
+function OfferListBlock({offerList, activeCity, activeSort}: TOfferListBlockProps) : JSX.Element {//TODO: как то упростить. выглядит как ужас. И карта не как картинка
   const isEmpty: boolean = offerList.length === 0;
   const [activeOfferId, setActiveOfferId] = useState<string|null>(null);
   const emptyClassName = isEmpty ? ' cities__places-container--empty' : '';
@@ -24,7 +25,7 @@ function OfferListBlock({offerList, activeCity}: TOfferListBlockProps) : JSX.Ele
     setActiveOfferId(null);
   }
 
-  const offersBlock : JSX.Element = isEmpty ? <BlockEmpty activeCity={activeCity}/> : <BlockFull offerList={offerList} activeCity={activeCity} handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave}/>;
+  const offersBlock : JSX.Element = isEmpty ? <BlockEmpty activeCity={activeCity}/> : <BlockFull offerList={offerList} activeCity={activeCity} activeSort={activeSort} handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave}/>;
 
 
   return(

@@ -106,9 +106,17 @@ const URL_MARKER_CURRENT = '/img/pin-active.svg';
 const MAX_GALLERY_SIZE = 6;
 const MAX_NEAREST_OFFERS_COUNT = 3;
 
+enum SortItems {
+  Popular = 'Popular',
+  Low2High = 'Price: low to high',
+  High2Low = 'Price: high to low',
+  TopRatedFirst = 'Top rated first',
+}
+
 
 export {
   AuthorizationStatus,
+  SortItems,
   ROUTE_LIST,
   SIZES,
   CITY_LIST,
