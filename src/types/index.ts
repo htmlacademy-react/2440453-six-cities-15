@@ -1,4 +1,4 @@
-import { THost, TOffer, TOfferList, TOfferFull, TCardSizes } from './offer';
+import { THost, TOffer, TOfferList, TOfferFull, TCardSizes, TOfferLoadStatus, } from './offer';
 import { TCity, TLocation, TCityName, TMapCenterType } from './city';
 import { TUser, TAuthorisation, TUserData, TUserAuthorisation } from './user';
 import { TCommentData, TOfferReview, TReview, TReviewList } from './review';
@@ -13,6 +13,7 @@ export type {
   TOffer,
   TOfferFull,
   TOfferList,
+  TOfferLoadStatus,
   TCardSizes,
   TUser,
   TAuthorisation,

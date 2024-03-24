@@ -1,4 +1,5 @@
 import { TLocation, TCity } from './city';
+import { OFFERS_LOADED_STATUS } from '../consts';
 
 export type THost = {
   avatarUrl: string;
@@ -35,3 +36,5 @@ export type TCardSizes = {
   width: string;
   height: string;
 }
+
+export type TOfferLoadStatus = typeof OFFERS_LOADED_STATUS[number];

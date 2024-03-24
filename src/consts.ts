@@ -29,6 +29,8 @@ const CITY_LIST = ['Paris', 'Cologne', 'Brussels', 'Amsterdam','Hamburg', 'Dusse
 
 const MAP_CENTER_TYPES = ['city', 'offer'] as const;
 
+const OFFERS_LOADED_STATUS = ['Unrequested', 'Loaded', 'Success', 'Error'] as const;
+
 const CITY_LIST_LOCATION :TCity[] = [
   {
     name: 'Paris',
@@ -135,6 +137,7 @@ export {
   CITY_LIST_LOCATION,
   TIMEOUT,
   BASE_URL,
+  OFFERS_LOADED_STATUS,
 };
 
 
