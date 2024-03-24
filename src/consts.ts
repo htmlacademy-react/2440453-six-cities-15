@@ -106,6 +106,9 @@ const URL_MARKER_CURRENT = '/img/pin-active.svg';
 const MAX_GALLERY_SIZE = 6;
 const MAX_NEAREST_OFFERS_COUNT = 3;
 
+const TIMEOUT = 5000;
+const BASE_URL = 'https://15.design.htmlacademy.pro/six-cities';
+
 enum SortItems {
   Popular = 'Popular',
   Low2High = 'Price: low to high',
@@ -130,6 +133,8 @@ export {
   MAX_NEAREST_OFFERS_COUNT,
   MAP_CENTER_TYPES,
   CITY_LIST_LOCATION,
+  TIMEOUT,
+  BASE_URL,
 };
 
 
