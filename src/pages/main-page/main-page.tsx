@@ -26,9 +26,8 @@ function MainPage({offersList}: TMainPageProps) : JSX.Element {
   let block : JSX.Element;
   if (loadingStatus === OFFERS_LOADED_STATUS[0] || loadingStatus === OFFERS_LOADED_STATUS[1]) {
     block = <LoadingBlock/>;
-  }
-  else {
-    block = <OfferListBlock offerList={cityOffersList} activeCity={cityName}/>
+  } else {
+    block = <OfferListBlock offerList={cityOffersList} activeCity={cityName}/>;
   }
   return (
     <div className={mainPageClass}>

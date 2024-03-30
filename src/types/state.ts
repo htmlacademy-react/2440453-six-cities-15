@@ -16,4 +16,4 @@ type TAppDispatch = typeof store.dispatch;
 export type {
   TState,
   TAppDispatch,
-}
+};

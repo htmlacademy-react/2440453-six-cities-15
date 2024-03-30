@@ -20,7 +20,7 @@ export const fetchOffersList = createAsyncThunk<void, undefined, {
 
 export const clearError = createAsyncThunk(
   'data/clearError',
-  async (_arg, {dispatch}) => {
+  (_arg, {dispatch}) => {
     setTimeout(
       () => dispatch(setError(null)),
       TIMEOUT_SHOW_ERROR,
