@@ -6,7 +6,7 @@ function SignOut() : JSX.Element {
       <Link className="header__nav-link" to={ROUTE_LIST.Login}>
         <span className="header__signout">Sign out</span>
       </Link>
-  </li>
+    </li>
   );
 }
 
