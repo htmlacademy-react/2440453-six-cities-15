@@ -1,23 +1,15 @@
 import { Link } from 'react-router-dom';
 import { ROUTE_LIST } from '../../consts';
 import { randomCity } from '../../utils';
+import Header from '../../components/header/header';
+import { useAppSelector } from '../../hooks';
 
 function LoginPage() : JSX.Element {
   const city = randomCity();
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
   return (
     <div className="page page--gray page--login">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link to={ROUTE_LIST.Root} className="header__logo-link">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
-
+      <Header authStatus={authStatus}/>
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
