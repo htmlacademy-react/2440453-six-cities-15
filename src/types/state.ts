@@ -8,7 +8,7 @@ type TState = {
   activeSort: SortItems;
   offersLoadStatus: TOfferLoadStatus;
   error: string | null;
-  authStatus: AuthorizationStatus;
+  authorizationStatus: AuthorizationStatus;
 }
 
 type TAppDispatch = typeof store.dispatch;

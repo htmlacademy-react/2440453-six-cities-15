@@ -14,7 +14,7 @@ store.dispatch(fetchOffersList());
 
 function App() : JSX.Element {
   const offerList = useAppSelector((state) => state.offers);
-  const authStatus = useAppSelector((state) => state.authStatus);
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
   return (
     <BrowserRouter>
       <Routes>

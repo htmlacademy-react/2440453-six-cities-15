@@ -10,7 +10,7 @@ const initialState: TState = {
   activeSort: SortItems.Popular,
   offersLoadStatus: OFFERS_LOADED_STATUS[0],
   error: null,
-  authStatus: AuthorizationStatus.NoAuth,
+  authorizationStatus: AuthorizationStatus.NoAuth,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
