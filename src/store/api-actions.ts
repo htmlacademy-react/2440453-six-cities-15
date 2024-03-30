@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { TAppDispatch, TOfferList, TState } from '../types';
+import { TAppDispatch, TOfferList, TState, TUserAuthorisation, TUserData } from '../types';
 import { AxiosInstance } from 'axios';
-import { setOffersLoadedStatus, fullOffersList, setError } from './action';
-import { OFFERS_LOADED_STATUS, TIMEOUT_SHOW_ERROR } from '../consts';
+import { setOffersLoadedStatus, fullOffersList, setError, setAuthStatus } from './action';
+import { AuthorizationStatus, OFFERS_LOADED_STATUS, TIMEOUT_SHOW_ERROR } from '../consts';
 
 export const fetchOffersList = createAsyncThunk<void, undefined, {
   dispatch: TAppDispatch;
@@ -26,4 +26,38 @@ export const clearError = createAsyncThunk(
       TIMEOUT_SHOW_ERROR,
     );
   },
+);
+
+export const login = createAsyncThunk<void, TUserData, {
+  dispatch: TAppDispatch;
+  state: TState;
+  extra: AxiosInstance;
+}>(
+  'user/login',
+  async ({email, password}, {dispatch, extra: api}) => {
+    try {
+      await api.post<TUserAuthorisation>('/login', {email, password});
+      dispatch(setAuthStatus(AuthorizationStatus.Auth));
+    } catch {
+      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+    }
+
+  }
+);
+
+
+export const checkLogin = createAsyncThunk<void, undefined, {
+  dispatch: TAppDispatch;
+  state: TState;
+  extra: AxiosInstance;
+}>(
+  'user/checklogin',
+  async (_arg, {dispatch, extra: api}) => {
+    try {
+      await api.get<TUserAuthorisation>('/login');
+      dispatch(setAuthStatus(AuthorizationStatus.Auth));
+    } catch {
+      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+    }
+  }
 );
