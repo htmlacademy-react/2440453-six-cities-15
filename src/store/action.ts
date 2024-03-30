@@ -8,5 +8,7 @@ export const fullOffersList = createAction<TOfferList>('offers/full');
 
 export const changeActiveSort = createAction<{sortItem:SortItems}>('sortItem/change');
 
-export const setOffersLoadedStatus = createAction<TOfferLoadStatus>('offers/changeLoadStatus');
+export const setOffersLoadedStatus = createAction<TOfferLoadStatus>('offersStatus/change');
+
+export const setError = createAction<string | null>('error/set');
 

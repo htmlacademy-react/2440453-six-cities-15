@@ -3,6 +3,7 @@ import { TCity, TLocation, TCityName, TMapCenterType } from './city';
 import { TUser, TAuthorisation, TUserData, TUserAuthorisation } from './user';
 import { TCommentData, TOfferReview, TReview, TReviewList } from './review';
 import { TState, TAppDispatch } from './state';
+import { TDetailMessageType } from './error';
 
 
 export type {
@@ -26,4 +27,5 @@ export type {
   TMapCenterType,
   TState,
   TAppDispatch,
+  TDetailMessageType,
 };

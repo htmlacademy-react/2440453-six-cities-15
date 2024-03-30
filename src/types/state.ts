@@ -1,5 +1,5 @@
 import { store } from '../store';
-import { SortItems } from '../consts';
+import { AuthorizationStatus, SortItems } from '../consts';
 import { TOfferList, TCityName, TOfferLoadStatus } from '.';
 
 type TState = {
@@ -7,6 +7,8 @@ type TState = {
   offers: TOfferList;
   activeSort: SortItems;
   offersLoadStatus: TOfferLoadStatus;
+  error: string | null;
+  authStatus: AuthorizationStatus;
 }
 
 type TAppDispatch = typeof store.dispatch;

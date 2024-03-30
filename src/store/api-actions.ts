@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { TAppDispatch, TOfferList, TState } from '../types';
 import { AxiosInstance } from 'axios';
-import { setOffersLoadedStatus, fullOffersList } from './action';
-import { OFFERS_LOADED_STATUS } from '../consts';
+import { setOffersLoadedStatus, fullOffersList, setError } from './action';
+import { OFFERS_LOADED_STATUS, TIMEOUT_SHOW_ERROR } from '../consts';
 
 export const fetchOffersList = createAsyncThunk<void, undefined, {
   dispatch: TAppDispatch;
@@ -16,4 +16,14 @@ export const fetchOffersList = createAsyncThunk<void, undefined, {
     dispatch(setOffersLoadedStatus(OFFERS_LOADED_STATUS[2]));
     dispatch(fullOffersList(data));
   }
+);
+
+export const clearError = createAsyncThunk(
+  'data/clearError',
+  async (_arg, {dispatch}) => {
+    setTimeout(
+      () => dispatch(setError(null)),
+      TIMEOUT_SHOW_ERROR,
+    );
+  },
 );
