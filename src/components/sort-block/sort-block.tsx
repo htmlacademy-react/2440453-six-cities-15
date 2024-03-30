@@ -8,17 +8,17 @@ type TSortBlockProps = {
   activeSort: SortItems;
 }
 function SortBlock({activeSort}: TSortBlockProps) : JSX.Element {
-  const [isOnen, changeOpenStatus] = useState(false);
+  const [isOpen, changeOpenStatus] = useState(false);
   const dispatch = useAppDispatch();
 
-  const listClassName = isOnen ? 'places__options--opened' : 'places__options--closed';
+  const listClassName = isOpen ? 'places__options--opened' : 'places__options--closed';
 
   const handleSortItemChange = (newItem: SortItems) => {
     dispatch(changeActiveSort({sortItem: newItem}));
   };
 
   const listOnClick = () => {
-    changeOpenStatus(!isOnen);
+    changeOpenStatus(!isOpen);
   };
 
   const sortItems = Object.values(SortItems).map((value) => <SortItem sortType={value} isActive={activeSort === value} key={value} onClick={handleSortItemChange}/>);

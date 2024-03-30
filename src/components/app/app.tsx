@@ -1,24 +1,26 @@
-import { AuthorizationStatus, ROUTE_LIST } from '../../consts';
+import { ROUTE_LIST } from '../../consts';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
 import MainPage from '../../pages/main-page/main-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import OfferPage from '../../pages/offer-page/offer-page';
-import { TOfferList } from '../../types';
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import PrivateRoute from '../private-route/private-route';
+import { useAppSelector } from '../../hooks';
+import { fetchOffersList } from '../../store/api-actions';
+import { store } from '../../store';
 
-type TAppProps = {
-  offerList: TOfferList;
-}
+store.dispatch(fetchOffersList());
 
-function App({offerList}: TAppProps) : JSX.Element {
+function App() : JSX.Element {
+  const offerList = useAppSelector((state) => state.offers);
+  const authStatus = useAppSelector((state) => state.authStatus);
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={ROUTE_LIST.Root} element={<MainPage/>}/>
-        <Route path={ROUTE_LIST.Favourites} element={<PrivateRoute authStatus={AuthorizationStatus.Auth}><FavoritesPage offerList={offerList}/></PrivateRoute>}/>
-        <Route path={ROUTE_LIST.Login} element={<PrivateRoute authStatus={AuthorizationStatus.NoAuth} reverseOperation><LoginPage/></PrivateRoute>}/>
+        <Route path={ROUTE_LIST.Root} element={<MainPage offersList={offerList}/>}/>
+        <Route path={ROUTE_LIST.Favourites} element={<PrivateRoute authStatus={authStatus}><FavoritesPage offerList={offerList}/></PrivateRoute>}/>
+        <Route path={ROUTE_LIST.Login} element={<PrivateRoute authStatus={authStatus} reverseOperation><LoginPage/></PrivateRoute>}/>
         <Route path={ROUTE_LIST.Offer} element={<OfferPage/>}/>
         <Route path={ROUTE_LIST.Unknown} element={<NotFoundPage/>}/>
       </Routes>

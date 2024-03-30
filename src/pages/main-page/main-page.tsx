@@ -1,22 +1,34 @@
 import { Link } from 'react-router-dom';
 import OfferListBlock from '../../components/offer-list-block/offer-list-block';
-import { ROUTE_LIST } from '../../consts';
+import { OFFERS_LOADED_STATUS, ROUTE_LIST } from '../../consts';
 import CitiesList from '../../components/cities-list/cities-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { TCityName } from '../../types';
+import { TCityName, TOfferList } from '../../types';
 import { changeCity } from '../../store/action';
+import LoadingBlock from '../../components/loading-block/loading-block';
 
-function MainPage() : JSX.Element {
+type TMainPageProps = {
+  offersList: TOfferList;
+}
+
+function MainPage({offersList}: TMainPageProps) : JSX.Element {
   const dispatch = useAppDispatch();
   const cityName = useAppSelector((state) => state.city);
-  const cityOffersList = useAppSelector((state) => state.offers).filter((item) => item.city.name === cityName);
+  const cityOffersList = offersList.filter((item) => item.city.name === cityName);
   const mainPageClass = cityOffersList.length === 0 ? 'page__main page__main--index page__main--index-empty' : 'page page--gray page--main';
+  const loadingStatus = useAppSelector((state) => state.offersLoadStatus);
 
   const handleCityClick = (isSelected: boolean, newCity: TCityName) => {
     if (!isSelected) {
       dispatch(changeCity({city: newCity}));
     }
   };
+  let block : JSX.Element;
+  if (loadingStatus === OFFERS_LOADED_STATUS[0] || loadingStatus === OFFERS_LOADED_STATUS[1]) {
+    block = <LoadingBlock/>;
+  } else {
+    block = <OfferListBlock offerList={cityOffersList} activeCity={cityName}/>;
+  }
   return (
     <div className={mainPageClass}>
       <header className="header">
@@ -50,7 +62,7 @@ function MainPage() : JSX.Element {
 
       <main className="page__main page__main--index">
         <CitiesList activeCity={cityName} handleCityClick={handleCityClick}/>
-        <OfferListBlock offerList={cityOffersList} activeCity={cityName}/>
+        {block}
       </main>
     </div>
   );

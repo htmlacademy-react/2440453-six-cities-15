@@ -1,3 +1,4 @@
+import { StatusCodes } from 'http-status-codes';
 import { TCardSizes, TCity } from './types';
 
 enum AuthorizationStatus {
@@ -28,6 +29,8 @@ const SIZES = {
 const CITY_LIST = ['Paris', 'Cologne', 'Brussels', 'Amsterdam','Hamburg', 'Dusseldorf', ] as const;
 
 const MAP_CENTER_TYPES = ['city', 'offer'] as const;
+
+const OFFERS_LOADED_STATUS = ['Unrequested', 'Loaded', 'Success', 'Error'] as const;
 
 const CITY_LIST_LOCATION :TCity[] = [
   {
@@ -106,6 +109,16 @@ const URL_MARKER_CURRENT = '/img/pin-active.svg';
 const MAX_GALLERY_SIZE = 6;
 const MAX_NEAREST_OFFERS_COUNT = 3;
 
+const TIMEOUT = 5000;
+const BASE_URL = 'https://15.design.htmlacademy.pro/six-cities';
+const TIMEOUT_SHOW_ERROR = 2000;
+
+const StatusCodeMapping: Record<number, boolean> = {
+  [StatusCodes.BAD_REQUEST]: true,
+  [StatusCodes.UNAUTHORIZED]: true,
+  [StatusCodes.NOT_FOUND]: true
+};
+
 enum SortItems {
   Popular = 'Popular',
   Low2High = 'Price: low to high',
@@ -130,6 +143,11 @@ export {
   MAX_NEAREST_OFFERS_COUNT,
   MAP_CENTER_TYPES,
   CITY_LIST_LOCATION,
+  TIMEOUT,
+  BASE_URL,
+  OFFERS_LOADED_STATUS,
+  TIMEOUT_SHOW_ERROR,
+  StatusCodeMapping,
 };
 
 
