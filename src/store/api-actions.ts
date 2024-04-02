@@ -3,6 +3,7 @@ import { TAppDispatch, TOfferList, TState, TUserAuthorisation, TUserData } from 
 import { AxiosInstance } from 'axios';
 import { setOffersLoadedStatus, fullOffersList, setError, setAuthStatus } from './action';
 import { AuthorizationStatus, OFFERS_LOADED_STATUS, TIMEOUT_SHOW_ERROR } from '../consts';
+import { dropToken } from '../services/token';
 
 export const fetchOffersList = createAsyncThunk<void, undefined, {
   dispatch: TAppDispatch;
@@ -56,6 +57,24 @@ export const checkLogin = createAsyncThunk<void, undefined, {
     try {
       await api.get<TUserAuthorisation>('/login');
       dispatch(setAuthStatus(AuthorizationStatus.Auth));
+    } catch {
+      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+    }
+  }
+);
+
+
+export const logout = createAsyncThunk<void, undefined, {
+  dispatch: TAppDispatch;
+  state: TState;
+  extra: AxiosInstance;
+}>(
+  'user/logout',
+  async (_arg, {dispatch, extra: api}) => {
+    try {
+      await api.delete('/logout');
+      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+      dropToken();
     } catch {
       dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
     }
