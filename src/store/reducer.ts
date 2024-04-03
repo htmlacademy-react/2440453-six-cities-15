@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus, CITY_LIST, OFFERS_LOADED_STATUS, SortItems } from '../consts';
-import { changeActiveSort, changeCity, fullOffersList, setError, setOffersLoadedStatus } from './action';
+import { changeActiveSort, changeCity, fullOffersList, setAuthStatus, setError, setOffersLoadedStatus } from './action';
 import { OFFERS_LIST } from '../mocks';
 import { TState } from '../types';
 
@@ -10,7 +10,7 @@ const initialState: TState = {
   activeSort: SortItems.Popular,
   offersLoadStatus: OFFERS_LOADED_STATUS[0],
   error: null,
-  authStatus: AuthorizationStatus.NoAuth,
+  authorizationStatus: AuthorizationStatus.NoAuth,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -29,6 +29,9 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
+    })
+    .addCase(setAuthStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });
 

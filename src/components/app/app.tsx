@@ -7,14 +7,15 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
-import { fetchOffersList } from '../../store/api-actions';
+import { checkLogin, fetchOffersList } from '../../store/api-actions';
 import { store } from '../../store';
 
 store.dispatch(fetchOffersList());
+store.dispatch(checkLogin());
 
 function App() : JSX.Element {
   const offerList = useAppSelector((state) => state.offers);
-  const authStatus = useAppSelector((state) => state.authStatus);
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
   return (
     <BrowserRouter>
       <Routes>
