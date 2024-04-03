@@ -13,7 +13,7 @@ function LoginPage() : JSX.Element {
   const emailRef = useRef<HTMLInputElement|null>(null);
   const passwordRef = useRef<HTMLInputElement|null>(null);
   const navigate = useNavigate();
-  const HandleSubmit = (e: FormEvent) => {
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     if (emailRef.current !== null && passwordRef.current !== null) {
@@ -30,7 +30,7 @@ function LoginPage() : JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post" onSubmit={HandleSubmit}>
+            <form className="login__form form" action="#" method="post" onSubmit={onSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input ref={emailRef} className="login__input form__input" type="email" name="email" placeholder="Email" required/>
