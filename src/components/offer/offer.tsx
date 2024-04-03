@@ -5,14 +5,15 @@ import { calcBookmarkActiveClass, calcHiddenPremiumClass } from '../../utils';
 import GoodsList from './goods-list';
 import Gallery from '../gallery/gallery';
 import HostInfo from './host-info';
-import { MAP_CENTER_TYPES } from '../../consts';
+import { AuthorizationStatus, MAP_CENTER_TYPES } from '../../consts';
 
 type TOfferProps = {
   offer: TOfferFull;
   nearbyOffers: TOfferList;
+  authStatus: AuthorizationStatus;
 }
 
-function Offer({offer, nearbyOffers} : TOfferProps) : JSX.Element {//TODO: основная инфа, ближайшие резать до передачи
+function Offer({offer, nearbyOffers, authStatus} : TOfferProps) : JSX.Element {//TODO: основная инфа, ближайшие резать до передачи
   const {title, id, goods, isPremium, isFavorite, images, host, description} = offer;
   const classNamePremium = calcHiddenPremiumClass(isPremium, 'offer__mark');
   const classNameActive = calcBookmarkActiveClass(isFavorite, 'offer__bookmark-button');
@@ -62,7 +63,7 @@ function Offer({offer, nearbyOffers} : TOfferProps) : JSX.Element {//TODO: ос�
             {goods && <GoodsList goodsList={goods}/>}
           </div>
           {host && <HostInfo host={host} description={description}/>}
-          <ReviewBlock/>
+          <ReviewBlock authStatus={authStatus}/>
         </div>
       </div>
       <Map activeOfferId={id} offers={nearbyOffers} prefixName={'offer'} type={MAP_CENTER_TYPES[1]}/>
