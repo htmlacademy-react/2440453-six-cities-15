@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { TAppDispatch, TOfferList, TState, TUserAuthorisation, TUserData } from '../types';
+import { TAppDispatch, TOfferFull, TOfferList, TReviewList, TState, TUserAuthorisation, TUserData } from '../types';
 import { AxiosInstance } from 'axios';
-import { setOffersLoadedStatus, fullOffersList, setError, setAuthStatus } from './action';
+import { setOffersLoadedStatus, fullOffersList, setError, setAuthStatus, setOfferLoadStatus, setFullOffer, setNearest, setReviewsLoadStatus, setReviewsList } from './action';
 import { AuthorizationStatus, OFFERS_LOADED_STATUS, TIMEOUT_SHOW_ERROR } from '../consts';
 import { dropToken } from '../services/token';
 
@@ -12,10 +12,14 @@ export const fetchOffersList = createAsyncThunk<void, undefined, {
 }>(
   'data/fetchOffers',
   async (_arg, {dispatch, extra: api}) => {
-    dispatch(setOffersLoadedStatus(OFFERS_LOADED_STATUS[0]));
-    const {data} = await api.get<TOfferList>('/offers');
-    dispatch(setOffersLoadedStatus(OFFERS_LOADED_STATUS[2]));
-    dispatch(fullOffersList(data));
+    dispatch(setOffersLoadedStatus(OFFERS_LOADED_STATUS[1]));
+    try {
+      const {data} = await api.get<TOfferList>('/offers');
+      dispatch(setOffersLoadedStatus(OFFERS_LOADED_STATUS[2]));
+      dispatch(fullOffersList(data));
+    } catch {
+      dispatch(setOffersLoadedStatus(OFFERS_LOADED_STATUS[3]));
+    }
   }
 );
 
@@ -77,6 +81,63 @@ export const logout = createAsyncThunk<void, undefined, {
       dropToken();
     } catch {
       dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+    }
+  }
+);
+
+
+export const fetchOffer = createAsyncThunk<void, string, {
+  dispatch: TAppDispatch;
+  state: TState;
+  extra: AxiosInstance;
+}>(
+  'data/fetchOffer',
+  async (id, {dispatch, extra: api}) => {
+    dispatch(setOfferLoadStatus(OFFERS_LOADED_STATUS[1]));
+    try {
+      const {data} = await api.get<TOfferFull>(`/offers/${id}`);
+      dispatch(setOffersLoadedStatus(OFFERS_LOADED_STATUS[2]));
+      dispatch(setFullOffer(data));
+    } catch {
+      dispatch(setOfferLoadStatus(OFFERS_LOADED_STATUS[3]));
+    }
+  }
+);
+
+
+export const fetchNearest = createAsyncThunk<void, string, {
+  dispatch: TAppDispatch;
+  state: TState;
+  extra: AxiosInstance;
+}>(
+  'data/fetchNearby',
+  async (id, {dispatch, extra: api}) => {
+    dispatch(setOfferLoadStatus(OFFERS_LOADED_STATUS[1]));
+    try {
+      const {data} = await api.get<TOfferList>(`/offers/${id}/nearby`);
+      dispatch(setOffersLoadedStatus(OFFERS_LOADED_STATUS[2]));
+      dispatch(setNearest(data));
+    } catch {
+      dispatch(setOfferLoadStatus(OFFERS_LOADED_STATUS[3]));
+    }
+  }
+);
+
+
+export const fetchReviews = createAsyncThunk<void, string, {
+  dispatch: TAppDispatch;
+  state: TState;
+  extra: AxiosInstance;
+}>(
+  'data/fetchReviews',
+  async (id, {dispatch, extra: api}) => {
+    dispatch(setReviewsLoadStatus(OFFERS_LOADED_STATUS[1]));
+    try {
+      const {data} = await api.get<TReviewList>(`/comments/${id}`);
+      dispatch(setReviewsLoadStatus(OFFERS_LOADED_STATUS[2]));
+      dispatch(setReviewsList(data));
+    } catch {
+      dispatch(setReviewsLoadStatus(OFFERS_LOADED_STATUS[3]));
     }
   }
 );

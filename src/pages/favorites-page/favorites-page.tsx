@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { ROUTE_LIST } from '../../consts';
 
 type TFavoritesPageProps = {
-  offerList: TOfferList;
+  offerList: TOfferList | null;
 }
 
 function FavoritesPage({offerList}: TFavoritesPageProps) : JSX.Element {

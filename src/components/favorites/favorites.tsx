@@ -3,7 +3,7 @@ import FavoritesList from '../favorites-list/favorites-list';
 import FavoritesEmpty from './favorites-empty';
 
 type TFavoritesProps = {
-  offerList: TOfferList;
+  offerList: TOfferList | null;
 }
 
 function Favorites({offerList}: TFavoritesProps) : JSX.Element {

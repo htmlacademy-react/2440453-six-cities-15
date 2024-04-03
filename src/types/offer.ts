@@ -12,7 +12,7 @@ export type TOffer = {
   title: string;
   location: TLocation;
   id: string;
-  isFavorite: boolean;
+  isFavorite?: boolean;
   isPremium: boolean;
   previewImage: string;
   price: number;
