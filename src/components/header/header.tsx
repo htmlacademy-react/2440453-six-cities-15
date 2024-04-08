@@ -1,6 +1,7 @@
-import { AuthorizationStatus, ROUTE_LIST } from '../../consts';
+import { AuthorizationStatus, RouteList } from '../../consts';
 import { Link } from 'react-router-dom';
 import SignOut from './header-sign-out';
+import { useAppSelector } from '../../hooks';
 
 type THeaderProps = {
   authStatus: AuthorizationStatus;
@@ -27,17 +28,17 @@ function NotLoggedBlock() : JSX.Element {
 }
 
 function Header({authStatus}: THeaderProps) : JSX.Element {
-  const email = 'sdsdsd';
-  const number = 3;
-  const isLogged = authStatus === AuthorizationStatus.Auth;
-  const loggedBlock = isLogged ? <LoggedBlock email={email} count={number}/> : <NotLoggedBlock/>;
-  const navDirect = isLogged ? ROUTE_LIST.Favourites : ROUTE_LIST.Login;
+  const user = useAppSelector((state) => state.user);
+  const count = useAppSelector((state) => state.favoritesList.length);
+  const isLogged = authStatus === AuthorizationStatus.Auth && user;
+  const loggedBlock = isLogged ? <LoggedBlock email={user.email} count={count}/> : <NotLoggedBlock/>;
+  const navDirect = isLogged ? RouteList.Favourites : RouteList.Login;
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Link to={ROUTE_LIST.Root} className="header__logo-link">
+            <Link to={RouteList.Root} className="header__logo-link">
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
             </Link>
           </div>

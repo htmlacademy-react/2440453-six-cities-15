@@ -1,11 +1,14 @@
 import ReviewBlock from '../../components/review-block/review-block';
 import Map from '../map/map';
 import { TOfferFull, TOfferList } from '../../types';
-import { calcBookmarkActiveClass, calcHiddenPremiumClass } from '../../utils';
+import { calcBookmarkActiveClass, calcHiddenPremiumClass, changeFirstSym, setCorrectEnding } from '../../utils';
 import GoodsList from './goods-list';
 import Gallery from '../gallery/gallery';
 import HostInfo from './host-info';
-import { AuthorizationStatus, MAP_CENTER_TYPES } from '../../consts';
+import { AuthorizationStatus, MAP_CENTER_TYPES, RouteList } from '../../consts';
+import { useAppDispatch } from '../../hooks';
+import { updateFavoriteStatus } from '../../store/api-actions';
+import { useNavigate } from 'react-router-dom';
 
 type TOfferProps = {
   offer: TOfferFull;
@@ -14,9 +17,18 @@ type TOfferProps = {
 }
 
 function Offer({offer, nearbyOffers, authStatus} : TOfferProps) : JSX.Element {//TODO: основная инфа, ближайшие резать до передачи
-  const {title, id, goods, isPremium, isFavorite, images, host, description} = offer;
+  const {title, id, goods, isPremium, isFavorite, images, host, description, bedrooms, maxAdults, type} = offer;
   const classNamePremium = calcHiddenPremiumClass(isPremium, 'offer__mark');
   const classNameActive = calcBookmarkActiveClass(isFavorite ? isFavorite : false, 'offer__bookmark-button');
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const onClick = () => {
+    if (authStatus === AuthorizationStatus.Auth) {
+      dispatch(updateFavoriteStatus({id: id, status: isFavorite ? 0 : 1}));
+    } else {
+      navigate(RouteList.Login);
+    }
+  }
   return(
     <section className="offer">
       {images && <Gallery images={images}/>}
@@ -29,7 +41,7 @@ function Offer({offer, nearbyOffers, authStatus} : TOfferProps) : JSX.Element {/
             <h1 className="offer__name">
               {title}
             </h1>
-            <button className={`${classNameActive} button`} type="button">
+            <button className={`${classNameActive} button`} type="button" onClick={onClick}>
               <svg className="offer__bookmark-icon" width="31" height="33">
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>
@@ -45,13 +57,13 @@ function Offer({offer, nearbyOffers, authStatus} : TOfferProps) : JSX.Element {/
           </div>
           <ul className="offer__features">
             <li className="offer__feature offer__feature--entire">
-              Apartment
+              {changeFirstSym(type)}
             </li>
             <li className="offer__feature offer__feature--bedrooms">
-              3 Bedrooms
+              {bedrooms && `${bedrooms} Bedroom${setCorrectEnding(bedrooms)}`}
             </li>
             <li className="offer__feature offer__feature--adults">
-              Max 4 adults
+              {maxAdults && `Max ${maxAdults} adult${setCorrectEnding(maxAdults)}`}
             </li>
           </ul>
           <div className="offer__price">
@@ -63,10 +75,10 @@ function Offer({offer, nearbyOffers, authStatus} : TOfferProps) : JSX.Element {/
             {goods && <GoodsList goodsList={goods}/>}
           </div>
           {host && <HostInfo host={host} description={description}/>}
-          <ReviewBlock authStatus={authStatus}/>
+          <ReviewBlock authStatus={authStatus} offerId={id}/>
         </div>
       </div>
-      <Map activeOfferId={id} offers={nearbyOffers} prefixName={'offer'} type={MAP_CENTER_TYPES[1]}/>
+      <Map activeOfferId={id} offers={[...nearbyOffers, offer]} prefixName={'offer'} type={MAP_CENTER_TYPES[1]}/>
     </section>
   );
 }

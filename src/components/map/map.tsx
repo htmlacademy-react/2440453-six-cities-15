@@ -32,6 +32,7 @@ function Map({offers, activeOfferId, prefixName, type, cityName}: TMapProps): JS
   });
 
   useEffect(() => {
+
     if (center && map) {
       const loc: leaflet.LatLngExpression = {
         lat: center.latitude,

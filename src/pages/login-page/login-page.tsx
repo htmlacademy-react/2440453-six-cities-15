@@ -1,10 +1,11 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { AuthorizationStatus, ROUTE_LIST } from '../../consts';
+import { useNavigate } from 'react-router-dom';
+import { AuthorizationStatus, RouteList } from '../../consts';
 import { randomCity } from '../../utils';
 import { FormEvent, useRef } from 'react';
 import Header from '../../components/header/header';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { login } from '../../store/api-actions';
+import { changeCity } from '../../store/action';
 
 function LoginPage() : JSX.Element {
   const city = randomCity();
@@ -13,13 +14,17 @@ function LoginPage() : JSX.Element {
   const emailRef = useRef<HTMLInputElement|null>(null);
   const passwordRef = useRef<HTMLInputElement|null>(null);
   const navigate = useNavigate();
+
+  const onClick = () => {
+    dispatch(changeCity({city:city}));
+    navigate(RouteList.Root);
+  };
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-
     if (emailRef.current !== null && passwordRef.current !== null) {
       dispatch(login({email: emailRef.current.value, password: passwordRef.current.value}));
       if(authStatus === AuthorizationStatus.Auth) {
-        navigate(ROUTE_LIST.Root);
+        navigate(RouteList.Root);
       }
     }
   };
@@ -44,9 +49,9 @@ function LoginPage() : JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link to={ROUTE_LIST.Root} className="locations__item-link">
+              <div className="locations__item-link" onClick={onClick}>
                 <span>{city}</span>
-              </Link>
+              </div>
             </div>
           </section>
         </div>

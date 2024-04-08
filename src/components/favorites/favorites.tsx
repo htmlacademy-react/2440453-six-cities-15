@@ -7,11 +7,12 @@ type TFavoritesProps = {
 }
 
 function Favorites({offerList}: TFavoritesProps) : JSX.Element {
-  const favorites = offerList ? <FavoritesList offerList={offerList}/> : <FavoritesEmpty/>;
-  const emptyMainClass = offerList ? '' : ' page__main--favorites-empty';
-  const emptySectionClass = offerList ? '' : ' page__main--favorites-empty';
-  const title = offerList ? 'Saved listing' : 'Favorites (empty)';
-  const headerClass = offerList ? 'favorites__title' : 'visually-hidden';
+  const fullCondition = offerList && offerList.length > 0;
+  const favorites = fullCondition ? <FavoritesList offerList={offerList}/> : <FavoritesEmpty/>;
+  const emptyMainClass = fullCondition ? '' : ' page__main--favorites-empty';
+  const emptySectionClass = fullCondition ? '' : ' page__main--favorites-empty';
+  const title = fullCondition ? 'Saved listing' : 'Favorites (empty)';
+  const headerClass = fullCondition ? 'favorites__title' : 'visually-hidden';
   return (
     <main className={`page__main page__main--favorites${emptyMainClass}`}>
       <div className="page__favorites-container container">

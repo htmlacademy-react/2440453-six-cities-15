@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { TCardSizes, TOffer } from '../../types';
-import { calcRaitingPersent, calcBookmarkActiveClass, calcHiddenPremiumClass } from '../../utils';
-import { ROUTE_LIST } from '../../consts';
+import { calcRaitingPersent, calcBookmarkActiveClass, calcHiddenPremiumClass, changeFirstSym } from '../../utils';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { updateFavoriteStatus } from '../../store/api-actions';
+import { AuthorizationStatus, RouteList } from '../../consts';
 
 type TOfferCardProps = {
   offer: TOffer;
@@ -10,19 +12,30 @@ type TOfferCardProps = {
   onMouseEnter?: React.MouseEventHandler;
   onMouseLeave?: React.MouseEventHandler;
 }
-function OfferCard({offer, prefixClass, cardSizes, onMouseEnter, onMouseLeave}: TOfferCardProps): JSX.Element {
+function OfferCard({offer, prefixClass, cardSizes, onMouseEnter, onMouseLeave}: TOfferCardProps): JSX.Element {//статус обновления и показывать ошибку при добавлении в избранное
   const {title, id, isFavorite, isPremium, previewImage, price, rating, type} = offer;
   const {width, height} = cardSizes;
   const ratPersent = calcRaitingPersent(rating);
   const classNamePremium = calcHiddenPremiumClass(isPremium, 'place-card__mark');
-  const classNameActive = calcBookmarkActiveClass(isFavorite, 'place-card__bookmark-button');
+  const classNameActive = calcBookmarkActiveClass(isFavorite ? isFavorite : false, 'place-card__bookmark-button');
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
+
+  const onClick = () => {
+    if (authStatus === AuthorizationStatus.Auth) {
+      dispatch(updateFavoriteStatus({id: id, status: isFavorite ? 0 : 1}));
+    } else {
+      navigate(RouteList.Login);
+    }
+  }
   return (
     <article className={`${prefixClass}__card place-card`} data-id={id} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className={classNamePremium}>
         <span>Premium</span>
       </div>
       <div className={`${prefixClass}__image-wrapper place-card__image-wrapper`}>
-        <Link to={ROUTE_LIST.Offer}>
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage} width={width} height={height} alt="Place image"/>
         </Link>
       </div>
@@ -32,7 +45,7 @@ function OfferCard({offer, prefixClass, cardSizes, onMouseEnter, onMouseLeave}: 
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${classNameActive} button`} type="button">
+          <button className={`place-card__bookmark-button ${classNameActive} button`} type="button" onClick={onClick}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -46,9 +59,9 @@ function OfferCard({offer, prefixClass, cardSizes, onMouseEnter, onMouseLeave}: 
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={ROUTE_LIST.Offer}>{title}</Link>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{changeFirstSym(type)}</p>
       </div>
     </article>
   );

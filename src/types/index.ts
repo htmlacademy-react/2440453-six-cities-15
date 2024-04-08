@@ -1,4 +1,4 @@
-import { THost, TOffer, TOfferList, TOfferFull, TCardSizes, TOfferLoadStatus, } from './offer';
+import { THost, TOffer, TOfferList, TOfferFull, TCardSizes, TOfferLoadStatus, TFavorite } from './offer';
 import { TCity, TLocation, TCityName, TMapCenterType } from './city';
 import { TUser, TAuthorisation, TUserData, TUserAuthorisation } from './user';
 import { TCommentData, TOfferReview, TReview, TReviewList } from './review';
@@ -28,4 +28,5 @@ export type {
   TState,
   TAppDispatch,
   TDetailMessageType,
+  TFavorite,
 };

@@ -1,11 +1,18 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { MAX_COMMENT_LENGHT, MIN_COMMENT_LENGHT, RATING } from '../../consts';
 import RatingInput from './rating-input';
+import { useAppDispatch } from '../../hooks';
+import { postReview } from '../../store/api-actions';
 
-function CommentForm() :JSX.Element {
+type TCommentFormProps = {
+  offerId : string;
+}
+
+function CommentForm({offerId}: TCommentFormProps) :JSX.Element {
   const [rating, setRating] = useState('');
   const [comment, setComment] = useState('');
   const isValidComment = comment.length >= MIN_COMMENT_LENGHT && comment.length <= MAX_COMMENT_LENGHT && rating !== '';
+  const dispatch = useAppDispatch();
 
   function handleTextChange(e:ChangeEvent<HTMLTextAreaElement>) {
     setComment(e.target.value);
@@ -17,6 +24,7 @@ function CommentForm() :JSX.Element {
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    dispatch(postReview({id: offerId, comment: comment, rating: parseInt(rating)}));
     setRating('');
     setComment('');
   }

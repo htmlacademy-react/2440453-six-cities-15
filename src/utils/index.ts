@@ -38,6 +38,10 @@ function setCorrectEnding (count: number) : string {
   }
 }
 
+function changeFirstSym (word: string) : string {
+  return word[0].toUpperCase() + word.slice(1,).toLowerCase();
+}
+
 function sortOfferList (offerList: TOfferList, sortType: SortItems) : TOfferList {
   switch (sortType) {
     case SortItems.High2Low:
@@ -51,4 +55,4 @@ function sortOfferList (offerList: TOfferList, sortType: SortItems) : TOfferList
   }
 }
 
-export { calcHiddenPremiumClass, calcRaitingPersent, calcBookmarkActiveClass, randomCity, getNearbyOffers, getCount, setCorrectEnding, sortOfferList };
+export { calcHiddenPremiumClass, calcRaitingPersent, calcBookmarkActiveClass, randomCity, getNearbyOffers, getCount, setCorrectEnding, sortOfferList, changeFirstSym };

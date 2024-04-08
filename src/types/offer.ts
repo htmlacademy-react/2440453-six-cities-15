@@ -1,5 +1,5 @@
 import { TLocation, TCity } from './city';
-import { OFFERS_LOADED_STATUS } from '../consts';
+import { FAVORITES, OFFERS_LOADED_STATUS } from '../consts';
 
 export type THost = {
   avatarUrl: string;
@@ -35,6 +35,11 @@ export type TOfferList = TOfferFull[];
 export type TCardSizes = {
   width: string;
   height: string;
+}
+
+export type TFavorite = {
+  id: string;
+  status: typeof FAVORITES[number];
 }
 
 export type TOfferLoadStatus = typeof OFFERS_LOADED_STATUS[number];

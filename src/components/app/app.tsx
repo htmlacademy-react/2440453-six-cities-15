@@ -1,4 +1,4 @@
-import { ROUTE_LIST } from '../../consts';
+import { RouteList } from '../../consts';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
 import MainPage from '../../pages/main-page/main-page';
@@ -19,11 +19,11 @@ function App() : JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={ROUTE_LIST.Root} element={<MainPage offersList={offerList}/>}/>
-        <Route path={ROUTE_LIST.Favourites} element={<PrivateRoute authStatus={authStatus}><FavoritesPage offerList={offerList}/></PrivateRoute>}/>
-        <Route path={ROUTE_LIST.Login} element={<PrivateRoute authStatus={authStatus} reverseOperation><LoginPage/></PrivateRoute>}/>
-        <Route path={ROUTE_LIST.Offer} element={<OfferPage/>}/>
-        <Route path={ROUTE_LIST.Unknown} element={<NotFoundPage/>}/>
+        <Route path={RouteList.Root} element={<MainPage offersList={offerList}/>}/>
+        <Route path={RouteList.Favourites} element={<PrivateRoute authStatus={authStatus} navAddress={RouteList.Login}><FavoritesPage/></PrivateRoute>}/>
+        <Route path={RouteList.Login} element={<PrivateRoute authStatus={authStatus} navAddress={RouteList.Root} reverseOperation><LoginPage/></PrivateRoute>}/>
+        <Route path={RouteList.Offer} element={<OfferPage/>}/>
+        <Route path={RouteList.Unknown} element={<NotFoundPage/>}/>
       </Routes>
     </BrowserRouter>
   );

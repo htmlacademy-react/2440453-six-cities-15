@@ -7,13 +7,13 @@ enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-const ROUTE_LIST = {
-  'Root' : '/',
-  'Unknown' : '*',
-  'Favourites' : '/favorites',
-  'Login' : '/login',
-  'Offer' : '/offer/:id',
-} as const;
+const enum RouteList {
+  Root = '/',
+  Unknown = '*',
+  Favourites = '/favorites',
+  Login = '/login',
+  Offer = '/offer/:id',
+};
 
 const SIZES = {
   'offers' : <TCardSizes>{
@@ -91,6 +91,12 @@ const RATING = {
   'perfect':'5',
 } as const;
 
+const FAVORITES = [
+  0,
+  1,
+] as const;
+
+
 const DEFAULT_CITY: TCity = {
   name: 'Amsterdam',
   location: {
@@ -108,6 +114,7 @@ const URL_MARKER_CURRENT = '/img/pin-active.svg';
 
 const MAX_GALLERY_SIZE = 6;
 const MAX_NEAREST_OFFERS_COUNT = 3;
+const MAX_REVIEW_COUNT = 10;
 
 const TIMEOUT = 5000;
 const BASE_URL = 'https://15.design.htmlacademy.pro/six-cities';
@@ -130,7 +137,7 @@ enum SortItems {
 export {
   AuthorizationStatus,
   SortItems,
-  ROUTE_LIST,
+  RouteList,
   SIZES,
   CITY_LIST,
   RATING,
@@ -141,6 +148,7 @@ export {
   URL_MARKER_CURRENT,
   MAX_GALLERY_SIZE,
   MAX_NEAREST_OFFERS_COUNT,
+  MAX_REVIEW_COUNT,
   MAP_CENTER_TYPES,
   CITY_LIST_LOCATION,
   TIMEOUT,
@@ -148,6 +156,7 @@ export {
   OFFERS_LOADED_STATUS,
   TIMEOUT_SHOW_ERROR,
   StatusCodeMapping,
+  FAVORITES,
 };
 
 
