@@ -4,7 +4,7 @@ import { TOfferList, TCityName, TOfferLoadStatus, TOfferFull, TReviewList, TUser
 
 type TState = {
   city: TCityName;
-  offers: TOfferList | [];
+  offers: TOfferList;
   activeSort: SortItems;
   offersLoadStatus: TOfferLoadStatus;
   offerLoadStatus: TOfferLoadStatus;
@@ -14,8 +14,8 @@ type TState = {
   authorizationStatus: AuthorizationStatus;
   offer: TOfferFull | null;
   reviewsList: TReviewList | null;
-  nearestOffers: TOfferList | [];
-  favoritesList: TOfferList | [];
+  nearestOffers: TOfferList;
+  favoritesList: TOfferList;
   user: TUserAuthorisation | null;
 }
 
