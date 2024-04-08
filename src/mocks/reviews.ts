@@ -1,8 +1,8 @@
 
 
-import { TReviewList } from '../types';
+import { TOfferReview } from '../types';
 
-const REVIEWS_LIST: TReviewList = [
+const REVIEWS_LIST: TOfferReview[] = [
   {
     'id':'e928cd36-5aac-41a0-a715-0a6e406b089e',
     'user': {
