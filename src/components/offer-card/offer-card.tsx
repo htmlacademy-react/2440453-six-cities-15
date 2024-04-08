@@ -28,7 +28,7 @@ function OfferCard({offer, prefixClass, cardSizes, onMouseEnter, onMouseLeave}: 
     } else {
       navigate(RouteList.Login);
     }
-  }
+  };
   return (
     <article className={`${prefixClass}__card place-card`} data-id={id} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className={classNamePremium}>

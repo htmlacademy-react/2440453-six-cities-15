@@ -28,7 +28,7 @@ function Offer({offer, nearbyOffers, authStatus} : TOfferProps) : JSX.Element {/
     } else {
       navigate(RouteList.Login);
     }
-  }
+  };
   return(
     <section className="offer">
       {images && <Gallery images={images}/>}

@@ -13,7 +13,7 @@ const enum RouteList {
   Favourites = '/favorites',
   Login = '/login',
   Offer = '/offer/:id',
-};
+}
 
 const SIZES = {
   'offers' : <TCardSizes>{

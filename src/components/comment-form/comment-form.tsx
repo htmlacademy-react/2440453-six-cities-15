@@ -24,7 +24,7 @@ function CommentForm({offerId}: TCommentFormProps) :JSX.Element {
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    dispatch(postReview({id: offerId, comment: comment, rating: parseInt(rating)}));
+    dispatch(postReview({id: offerId, comment: comment, rating: parseInt(rating, 10)}));
     setRating('');
     setComment('');
   }

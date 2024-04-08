@@ -33,64 +33,6 @@ export const clearError = createAsyncThunk(
   },
 );
 
-export const login = createAsyncThunk<void, TUserData, {
-  dispatch: TAppDispatch;
-  state: TState;
-  extra: AxiosInstance;
-}>(
-  'user/login',
-  async ({email, password}, {dispatch, extra: api}) => {
-    try {
-      const {data} = await api.post<TUserAuthorisation>('/login', {email, password});
-      dispatch(setAuthStatus(AuthorizationStatus.Auth));
-      saveToken(data.token);
-      dispatch(fetchFavoritesList());
-      dispatch(setUser(data));
-    } catch {
-      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
-    }
-
-  }
-);
-
-
-export const checkLogin = createAsyncThunk<void, undefined, {
-  dispatch: TAppDispatch;
-  state: TState;
-  extra: AxiosInstance;
-}>(
-  'user/checklogin',
-  async (_arg, {dispatch, extra: api}) => {
-    try {
-      const {data} = await api.get<TUserAuthorisation>('/login');
-      dispatch(setAuthStatus(AuthorizationStatus.Auth));
-      dispatch(fetchFavoritesList());
-      dispatch(setUser(data));
-    } catch {
-      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
-    }
-  }
-);
-
-
-export const logout = createAsyncThunk<void, undefined, {
-  dispatch: TAppDispatch;
-  state: TState;
-  extra: AxiosInstance;
-}>(
-  'user/logout',
-  async (_arg, {dispatch, extra: api}) => {
-    try {
-      await api.delete('/logout');
-      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
-      dispatch(setUser(null));
-      dropToken();
-    } catch {
-      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
-    }
-  }
-);
-
 
 export const fetchOffer = createAsyncThunk<void, string, {
   dispatch: TAppDispatch;
@@ -203,6 +145,65 @@ export const updateFavoriteStatus = createAsyncThunk<void, TFavorite, {
       dispatch(changeFavorites({id, status}));
     } catch {
       dispatch(setFavoritesLoadStatus(OFFERS_LOADED_STATUS[3]));
+    }
+  }
+);
+
+
+export const login = createAsyncThunk<void, TUserData, {
+  dispatch: TAppDispatch;
+  state: TState;
+  extra: AxiosInstance;
+}>(
+  'user/login',
+  async ({email, password}, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.post<TUserAuthorisation>('/login', {email, password});
+      dispatch(setAuthStatus(AuthorizationStatus.Auth));
+      saveToken(data.token);
+      dispatch(fetchFavoritesList());
+      dispatch(setUser(data));
+    } catch {
+      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+    }
+
+  }
+);
+
+
+export const checkLogin = createAsyncThunk<void, undefined, {
+  dispatch: TAppDispatch;
+  state: TState;
+  extra: AxiosInstance;
+}>(
+  'user/checklogin',
+  async (_arg, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.get<TUserAuthorisation>('/login');
+      dispatch(setAuthStatus(AuthorizationStatus.Auth));
+      dispatch(fetchFavoritesList());
+      dispatch(setUser(data));
+    } catch {
+      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+    }
+  }
+);
+
+
+export const logout = createAsyncThunk<void, undefined, {
+  dispatch: TAppDispatch;
+  state: TState;
+  extra: AxiosInstance;
+}>(
+  'user/logout',
+  async (_arg, {dispatch, extra: api}) => {
+    try {
+      await api.delete('/logout');
+      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+      dispatch(setUser(null));
+      dropToken();
+    } catch {
+      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
     }
   }
 );

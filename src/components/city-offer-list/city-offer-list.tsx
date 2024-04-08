@@ -16,7 +16,7 @@ function CityOfferList({cityName, offersList}: TCityOfferListProps) : JSX.Elemen
   const dispatch = useAppDispatch();
   const onClick = () => {
     dispatch(changeCity({city: cityName}));
-  }
+  };
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">

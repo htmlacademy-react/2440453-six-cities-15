@@ -15,7 +15,7 @@ type TState = {
   offer: TOfferFull | null;
   reviewsList: TReviewList | null;
   nearestOffers: TOfferList | [];
-  favoritesList: TOfferList | <TOfferList>[];
+  favoritesList: TOfferList | [];
   user: TUserAuthorisation | null;
 }
 
