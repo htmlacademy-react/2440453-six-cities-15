@@ -1,4 +1,6 @@
-import { ROUTE_LIST, SIZES } from '../../consts';
+import { RouteList, SIZES } from '../../consts';
+import { useAppDispatch } from '../../hooks';
+import { changeCity } from '../../store/action';
 import { TOfferList } from '../../types';
 import { TCityName } from '../../types';
 import OfferList from '../offer-list/offer-list';
@@ -11,11 +13,15 @@ type TCityOfferListProps = {
 
 function CityOfferList({cityName, offersList}: TCityOfferListProps) : JSX.Element { //пока навигация просто на главную, надо на город
   const cardSize = SIZES.favorites;
+  const dispatch = useAppDispatch();
+  const onClick = () => {
+    dispatch(changeCity({city: cityName}));
+  };
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <Link to={ROUTE_LIST.Root} className="locations__item-link">
+          <Link to={RouteList.Root} className="locations__item-link" onClick={onClick}>
             <span>{cityName}</span>
           </Link>
         </div>

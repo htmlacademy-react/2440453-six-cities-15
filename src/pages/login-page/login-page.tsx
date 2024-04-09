@@ -1,10 +1,11 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { AuthorizationStatus, ROUTE_LIST } from '../../consts';
+import { useNavigate } from 'react-router-dom';
+import { AuthorizationStatus, RouteList } from '../../consts';
 import { randomCity } from '../../utils';
 import { FormEvent, useRef } from 'react';
 import Header from '../../components/header/header';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { login } from '../../store/api-actions';
+import { changeCity } from '../../store/action';
 
 function LoginPage() : JSX.Element {
   const city = randomCity();
@@ -13,13 +14,17 @@ function LoginPage() : JSX.Element {
   const emailRef = useRef<HTMLInputElement|null>(null);
   const passwordRef = useRef<HTMLInputElement|null>(null);
   const navigate = useNavigate();
-  const HandleSubmit = (e: FormEvent) => {
-    e.preventDefault();
 
+  const onClick = () => {
+    dispatch(changeCity({city:city}));
+    navigate(RouteList.Root);
+  };
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
     if (emailRef.current !== null && passwordRef.current !== null) {
       dispatch(login({email: emailRef.current.value, password: passwordRef.current.value}));
       if(authStatus === AuthorizationStatus.Auth) {
-        navigate(ROUTE_LIST.Root);
+        navigate(RouteList.Root);
       }
     }
   };
@@ -30,7 +35,7 @@ function LoginPage() : JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post" onSubmit={HandleSubmit}>
+            <form className="login__form form" action="#" method="post" onSubmit={onSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input ref={emailRef} className="login__input form__input" type="email" name="email" placeholder="Email" required/>
@@ -44,9 +49,9 @@ function LoginPage() : JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link to={ROUTE_LIST.Root} className="locations__item-link">
+              <div className="locations__item-link" onClick={onClick}>
                 <span>{city}</span>
-              </Link>
+              </div>
             </div>
           </section>
         </div>

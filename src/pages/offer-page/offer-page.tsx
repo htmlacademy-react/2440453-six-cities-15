@@ -1,49 +1,48 @@
 import Offer from '../../components/offer/offer';
-import { Link } from 'react-router-dom';
-import { MAX_NEAREST_OFFERS_COUNT, ROUTE_LIST } from '../../consts';
-import { OFFERS_LIST } from '../../mocks';
+import { MAX_NEAREST_OFFERS_COUNT, OFFERS_LOADED_STATUS, RouteList } from '../../consts';
 import { getCount, getNearbyOffers } from '../../utils';
 import NearbyOffers from '../../components/nearby-offers/nearby-offers';
+import Header from '../../components/header/header';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchNearest, fetchOffer, fetchReviews } from '../../store/api-actions';
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import LoadingBlock from '../../components/loading-block/loading-block';
 
-function OfferPage() : JSX.Element {//TODO: ближайшие места передавать и в оффер (на карту) и в ближайшие. Ближайшие вынесу позже, явно компонент
-  const offer = OFFERS_LIST[0];
-  const offerCount = getCount(OFFERS_LIST.length, MAX_NEAREST_OFFERS_COUNT);
-  const nearbyOffers = getNearbyOffers(OFFERS_LIST, offerCount);
+function OfferPage() : JSX.Element {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const offer = useAppSelector((state) => state.offer);
+  const nearestOffers = useAppSelector((state) => state.nearestOffers);
+  const offerStatus = useAppSelector((state) => state.offerLoadStatus);
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const dispatch = useAppDispatch();
+  const offerCount = nearestOffers ? getCount(nearestOffers.length, MAX_NEAREST_OFFERS_COUNT) : 0;
+  const nearbyOffers = nearestOffers ? getNearbyOffers(nearestOffers, offerCount) : [];
+  let block : JSX.Element = <main className="page__main page__main--offer"></main>;
+
+
+  useEffect(() => {
+    if (id) {
+      const strId = id.toString();
+      dispatch(fetchOffer(strId));
+      dispatch(fetchReviews(strId));
+      dispatch(fetchNearest(strId));
+    }
+  }, [id, dispatch]);
+
+  if (offerStatus === OFFERS_LOADED_STATUS[0] || offerStatus === OFFERS_LOADED_STATUS[1]) {
+    block = <main className="page__main page__main--offer"><LoadingBlock/></main>;
+  } else if (offerStatus === OFFERS_LOADED_STATUS[2] && offer) {
+    block = <main className="page__main page__main--offer"><Offer offer={offer} nearbyOffers={nearbyOffers} authStatus={authStatus}/><NearbyOffers offers={nearbyOffers}/></main>;
+  } else {
+    navigate(RouteList.Unknown);
+  }
+
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link to={ROUTE_LIST.Root}>
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </Link>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
-
-      <main className="page__main page__main--offer">
-        <Offer offer={offer} nearbyOffers={nearbyOffers}/>
-        <NearbyOffers offers={nearbyOffers}/>
-      </main>
+      <Header authStatus={authStatus}/>
+      {block}
     </div>
   );
 }

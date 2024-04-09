@@ -12,7 +12,7 @@ export type TOfferReview = TReview & {
   'offerId': string;
 }
 
-export type TReviewList = TOfferReview [];
+export type TReviewList = TReview [];
 
 export type TCommentData = {
   'rating': number;
