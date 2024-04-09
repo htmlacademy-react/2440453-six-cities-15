@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus, CITY_LIST, OFFERS_LOADED_STATUS, SortItems } from '../consts';
-import { addReview, changeActiveSort, changeCity, changeFavorites, changeOffers, fullFavoritesList, fullOffersList, setAuthStatus, setError, setFavoritesLoadStatus, setFullOffer, setNearest, setOfferLoadStatus, setOffersLoadedStatus, setReviewsList, setReviewsLoadStatus, setUser, updateOffer } from './action';
+import { addReview, changeActiveSort, changeCity, changeFavorites, changeOffers, fullFavoritesList, fullOffersList, setAuthStatus, setError, setFavoritesLoadStatus, setFullOffer, setNearest, setOfferLoadStatus, setOffersLoadedStatus, setReviewPostStatus, setReviewsList, setReviewsLoadStatus, setUser, updateOffer } from './action';
 import { TState } from '../types';
 
 const initialState: TState = {
@@ -10,6 +10,7 @@ const initialState: TState = {
   offersLoadStatus: OFFERS_LOADED_STATUS[0],
   offerLoadStatus: OFFERS_LOADED_STATUS[0],
   reviewsLoadStatus: OFFERS_LOADED_STATUS[0],
+  reviewPostStatus: OFFERS_LOADED_STATUS[0],
   favoritesLoadStatus: OFFERS_LOADED_STATUS[0],
   error: null,
   authorizationStatus: AuthorizationStatus.NoAuth,
@@ -39,6 +40,9 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setReviewsLoadStatus, (state, action) => {
       state.reviewsLoadStatus = action.payload;
+    })
+    .addCase(setReviewPostStatus, (state, action) => {
+      state.reviewPostStatus = action.payload;
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;

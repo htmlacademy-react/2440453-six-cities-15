@@ -14,6 +14,8 @@ export const setOfferLoadStatus = createAction<TOfferLoadStatus>('offerStatus/ch
 
 export const setReviewsLoadStatus = createAction<TOfferLoadStatus>('reviewsStatus/change');
 
+export const setReviewPostStatus = createAction<TOfferLoadStatus>('reviewStatus/change');
+
 export const setFavoritesLoadStatus = createAction<TOfferLoadStatus>('favoritesStatus/change');
 
 export const setError = createAction<string | null>('error/set');

@@ -9,6 +9,7 @@ type TState = {
   offersLoadStatus: TOfferLoadStatus;
   offerLoadStatus: TOfferLoadStatus;
   reviewsLoadStatus: TOfferLoadStatus;
+  reviewPostStatus: TOfferLoadStatus;
   favoritesLoadStatus: TOfferLoadStatus;
   error: string | null;
   authorizationStatus: AuthorizationStatus;

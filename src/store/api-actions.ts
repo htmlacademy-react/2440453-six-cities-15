@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { TAppDispatch, TCommentData, TFavorite, TOfferFull, TOfferList, TReview, TReviewList, TState, TUserAuthorisation, TUserData } from '../types';
 import { AxiosInstance } from 'axios';
-import { setOffersLoadedStatus, fullOffersList, setError, setAuthStatus, setOfferLoadStatus, setFullOffer, setNearest, setReviewsLoadStatus, setReviewsList, addReview, setFavoritesLoadStatus, fullFavoritesList, changeOffers, changeFavorites, setUser, updateOffer } from './action';
+import { setOffersLoadedStatus, fullOffersList, setError, setAuthStatus, setOfferLoadStatus, setFullOffer, setNearest, setReviewsLoadStatus, setReviewsList, addReview, setFavoritesLoadStatus, fullFavoritesList, changeOffers, changeFavorites, setUser, updateOffer, setReviewPostStatus } from './action';
 import { AuthorizationStatus, OFFERS_LOADED_STATUS, TIMEOUT_SHOW_ERROR } from '../consts';
 import { dropToken, saveToken } from '../services/token';
 
@@ -98,13 +98,13 @@ export const postReview = createAsyncThunk<void, TCommentData, {
 }>(
   'data/postReviews',
   async ({id, comment, rating}, {dispatch, extra: api}) => {
-    dispatch(setReviewsLoadStatus(OFFERS_LOADED_STATUS[1]));
+    dispatch(setReviewPostStatus(OFFERS_LOADED_STATUS[1]));
     try {
       const {data} = await api.post<TReview>(`/comments/${id}`, {comment, rating});
-      dispatch(setReviewsLoadStatus(OFFERS_LOADED_STATUS[2]));
+      dispatch(setReviewPostStatus(OFFERS_LOADED_STATUS[2]));
       dispatch(addReview(data));
     } catch {
-      dispatch(setReviewsLoadStatus(OFFERS_LOADED_STATUS[3]));
+      dispatch(setReviewPostStatus(OFFERS_LOADED_STATUS[3]));
     }
   }
 );
