@@ -16,7 +16,7 @@ type TOfferProps = {
   authStatus: AuthorizationStatus;
 }
 
-function Offer({offer, nearbyOffers, authStatus} : TOfferProps) : JSX.Element {//TODO: основная инфа, ближайшие резать до передачи
+function Offer({offer, nearbyOffers, authStatus} : TOfferProps) : JSX.Element {
   const {title, id, goods, isPremium, isFavorite, images, host, description, bedrooms, maxAdults, type} = offer;
   const classNamePremium = calcHiddenPremiumClass(isPremium, 'offer__mark');
   const classNameActive = calcBookmarkActiveClass(isFavorite ? isFavorite : false, 'offer__bookmark-button');

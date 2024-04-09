@@ -17,7 +17,6 @@ function CommentForm({offerId}: TCommentFormProps) :JSX.Element {
   const reviewStatus = useAppSelector((state) => state.reviewPostStatus);
   const errorMessage = useAppSelector((state) => state.error);
   const isError = reviewStatus === OFFERS_LOADED_STATUS[3] && errorMessage;
-  const formClassName = reviewStatus === OFFERS_LOADED_STATUS[1] ? 'reviews__form form ' : 'reviews__form form';
 
   function handleTextChange(e:ChangeEvent<HTMLTextAreaElement>) {
     setComment(e.target.value);
@@ -34,7 +33,7 @@ function CommentForm({offerId}: TCommentFormProps) :JSX.Element {
     setComment('');
   }
 
-  const ratings = Object.entries(RATING).reverse().map(([key, value]) => <RatingInput key={key} title={key} value={value} checked={rating.toString() === value.toString()} onChange={handleRatingChange}/>);
+  const ratings = Object.entries(RATING).reverse().map(([key, value]) => <RatingInput key={key} title={key} value={value} checked={rating.toString() === value.toString()} dis={reviewStatus === OFFERS_LOADED_STATUS[2]} onChange={handleRatingChange}/>);
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
