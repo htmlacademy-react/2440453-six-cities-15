@@ -1,8 +1,8 @@
+import { useState } from 'react';
 import { SortItems } from '../../consts';
 import { useAppDispatch } from '../../hooks';
-import { changeActiveSort } from '../../store/action';
+import { changeActiveSort } from '../../store';
 import SortItem from './sort-item';
-import { useState } from 'react';
 
 type TSortBlockProps = {
   activeSort: SortItems;

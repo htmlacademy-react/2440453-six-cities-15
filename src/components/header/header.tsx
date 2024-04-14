@@ -1,35 +1,18 @@
-import { AuthorizationStatus, RouteList } from '../../consts';
 import { Link } from 'react-router-dom';
-import SignOut from './header-sign-out';
+import { AuthorizationStatus, RouteList } from '../../consts';
 import { useAppSelector } from '../../hooks';
+import { getFavorites, getUser } from '../../store';
+import SignOut from './header-sign-out';
+import LoggedBlock from './logged-block';
+import NotLoggedBlock from './not-logged-block';
 
 type THeaderProps = {
   authStatus: AuthorizationStatus;
 }
 
-type TLoggedBlockProps = {
-  email: string;
-  count: number;
-}
-
-function LoggedBlock({email, count}: TLoggedBlockProps) : JSX.Element {
-  return (
-    <>
-      <span className="header__user-name user__name">{email}</span>
-      <span className="header__favorite-count">{count}</span>
-    </>
-  );
-}
-
-function NotLoggedBlock() : JSX.Element {
-  return(
-    <span className="header__login">Sign in</span>
-  );
-}
-
 function Header({authStatus}: THeaderProps) : JSX.Element {
-  const user = useAppSelector((state) => state.user);
-  const count = useAppSelector((state) => state.favoritesList.length);
+  const user = useAppSelector(getUser);
+  const count = useAppSelector(getFavorites).length;
   const isLogged = authStatus === AuthorizationStatus.Auth && user;
   const loggedBlock = isLogged ? <LoggedBlock email={user.email} count={count}/> : <NotLoggedBlock/>;
   const navDirect = isLogged ? RouteList.Favourites : RouteList.Login;
@@ -61,4 +44,3 @@ function Header({authStatus}: THeaderProps) : JSX.Element {
 }
 
 export default Header;
-

@@ -1,5 +1,5 @@
 
-function LoadingBlock() : JSX.Element {
+export default function LoadingBlock() : JSX.Element {
   return(
     <div className="cities">
       <div className='cities__places-container container'>
@@ -11,5 +11,3 @@ function LoadingBlock() : JSX.Element {
     </div>
   );
 }
-
-export default LoadingBlock;

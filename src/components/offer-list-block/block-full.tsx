@@ -1,20 +1,21 @@
 import { TCityName, TOfferList } from '../../types';
-import OfferList from '../offer-list/offer-list';
-import SortBlock from '../sort-block/sort-block';
 import { setCorrectEnding, sortOfferList } from '../../utils';
 import { SIZES } from '../../consts';
 import { useAppSelector } from '../../hooks';
+import OfferList from '../offer-list/offer-list';
+import SortBlock from '../sort-block/sort-block';
+import { getActiveSort } from '../../store';
 
 type TBlockFullProps = {
-  offerList: TOfferList;
+  offersList: TOfferList;
   activeCity: TCityName;
   handleMouseEnter: (id: string) => void;
   handleMouseLeave: () => void;
 }
 
-function BlockFull({offerList, activeCity, handleMouseEnter, handleMouseLeave}: TBlockFullProps) : JSX.Element {
-  const activeSort = useAppSelector((state) => state.activeSort);
-  const sortedList = sortOfferList(offerList, activeSort);
+function BlockFull({offersList, activeCity, handleMouseEnter, handleMouseLeave}: TBlockFullProps) : JSX.Element {
+  const activeSort = useAppSelector(getActiveSort);
+  const sortedList = sortOfferList(offersList, activeSort);
   return(
     <>
       <h2 className="visually-hidden">Places</h2>

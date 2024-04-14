@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { MAX_COMMENT_LENGHT, MIN_COMMENT_LENGHT, OFFERS_LOADED_STATUS, RATING } from '../../consts';
-import RatingInput from './rating-input';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { postReview } from '../../store/api-actions';
+import { MAX_COMMENT_LENGHT, MIN_COMMENT_LENGHT, OFFERS_LOADED_STATUS, RATING } from '../../consts';
+import { getError, getReviewsPostStatus, postReview } from '../../store';
+import RatingInput from './rating-input';
 import ErrorMessage from '../error-message/error-message';
 
 type TCommentFormProps = {
@@ -14,8 +14,8 @@ function CommentForm({offerId}: TCommentFormProps) :JSX.Element {
   const [comment, setComment] = useState('');
   const isValidComment = comment.length >= MIN_COMMENT_LENGHT && comment.length <= MAX_COMMENT_LENGHT && rating !== '';
   const dispatch = useAppDispatch();
-  const reviewStatus = useAppSelector((state) => state.reviewPostStatus);
-  const errorMessage = useAppSelector((state) => state.error);
+  const reviewStatus = useAppSelector(getReviewsPostStatus);
+  const errorMessage = useAppSelector(getError);
   const isError = reviewStatus === OFFERS_LOADED_STATUS[3] && errorMessage;
 
   function handleTextChange(e:ChangeEvent<HTMLTextAreaElement>) {

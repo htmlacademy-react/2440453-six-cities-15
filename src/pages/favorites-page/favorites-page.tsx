@@ -1,18 +1,17 @@
-import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import Favorites from '../../components/favorites/favorites';
-import Footer from './favorites-footer';
-import { fetchFavoritesList } from '../../store/api-actions';
-import Header from '../../components/header/header';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchFavoritesList, getAuthStatus, getFavorites, getFavoritesLoadStatus } from '../../store';
 import { OFFERS_LOADED_STATUS } from '../../consts';
+import Favorites from '../../components/favorites/favorites';
+import Header from '../../components/header/header';
 import LoadingBlock from '../../components/loading-block/loading-block';
 import ErrorMessage from '../../components/error-message/error-message';
-
+import Footer from './footer';
 
 function FavoritesPage() : JSX.Element {
-  const offerList = useAppSelector((state) => state.favoritesList);
-  const favoritesStatus = useAppSelector((state) => state.favoritesLoadStatus);
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const offerList = useAppSelector(getFavorites);
+  const favoritesStatus = useAppSelector(getFavoritesLoadStatus);
+  const authStatus = useAppSelector(getAuthStatus);
   const dispatch = useAppDispatch();
   let block = <LoadingBlock/>;
 
