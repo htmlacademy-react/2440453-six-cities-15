@@ -2,8 +2,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { TCardSizes, TOffer } from '../../types';
 import { calcRaitingPersent, calcBookmarkActiveClass, calcHiddenPremiumClass, changeFirstSym } from '../../utils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { updateFavoriteStatus } from '../../store/api-actions';
 import { AuthorizationStatus, RouteList } from '../../consts';
+import { getAuthStatus, updateFavoriteStatus } from '../../store';
 
 type TOfferCardProps = {
   offer: TOffer;
@@ -12,7 +12,7 @@ type TOfferCardProps = {
   onMouseEnter?: React.MouseEventHandler;
   onMouseLeave?: React.MouseEventHandler;
 }
-function OfferCard({offer, prefixClass, cardSizes, onMouseEnter, onMouseLeave}: TOfferCardProps): JSX.Element {//статус обновления и показывать ошибку при добавлении в избранное
+function OfferCard({offer, prefixClass, cardSizes, onMouseEnter, onMouseLeave}: TOfferCardProps): JSX.Element {
   const {title, id, isFavorite, isPremium, previewImage, price, rating, type} = offer;
   const {width, height} = cardSizes;
   const ratPersent = calcRaitingPersent(rating);
@@ -20,7 +20,7 @@ function OfferCard({offer, prefixClass, cardSizes, onMouseEnter, onMouseLeave}: 
   const classNameActive = calcBookmarkActiveClass(isFavorite ? isFavorite : false, 'place-card__bookmark-button');
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(getAuthStatus);
 
   const onClick = () => {
     if (authStatus === AuthorizationStatus.Auth) {

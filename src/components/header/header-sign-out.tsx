@@ -1,6 +1,5 @@
 import { useAppDispatch } from '../../hooks';
 import { logout } from '../../store/api-actions';
-//Вообще тут должно быть следующее - если это фэйворит - то валимся в логин или мэйн, а иначе - ничего не меняется
 
 function SignOut() : JSX.Element {
   const dispatch = useAppDispatch();

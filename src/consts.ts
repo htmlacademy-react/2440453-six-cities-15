@@ -1,4 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
 import { TCardSizes, TCity } from './types';
 
 enum AuthorizationStatus {
@@ -13,6 +12,15 @@ const enum RouteList {
   Favourites = '/favorites',
   Login = '/login',
   Offer = '/offer/:id',
+}
+
+enum StateNamespace {
+  User = 'user',
+  Offer = 'offer',
+  Review = 'review',
+  Offers = 'offers',
+  Favorites = 'favorites',
+  Common = 'common',
 }
 
 const SIZES = {
@@ -120,12 +128,6 @@ const TIMEOUT = 5000;
 const BASE_URL = 'https://15.design.htmlacademy.pro/six-cities';
 const TIMEOUT_SHOW_ERROR = 2000;
 
-const StatusCodeMapping: Record<number, boolean> = {
-  [StatusCodes.BAD_REQUEST]: true,
-  [StatusCodes.UNAUTHORIZED]: true,
-  [StatusCodes.NOT_FOUND]: true
-};
-
 enum SortItems {
   Popular = 'Popular',
   Low2High = 'Price: low to high',
@@ -138,6 +140,7 @@ export {
   AuthorizationStatus,
   SortItems,
   RouteList,
+  StateNamespace,
   SIZES,
   CITY_LIST,
   RATING,
@@ -155,7 +158,6 @@ export {
   BASE_URL,
   OFFERS_LOADED_STATUS,
   TIMEOUT_SHOW_ERROR,
-  StatusCodeMapping,
   FAVORITES,
 };
 

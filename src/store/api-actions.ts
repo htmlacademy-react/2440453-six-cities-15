@@ -1,209 +1,137 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { TAppDispatch, TCommentData, TFavorite, TOfferFull, TOfferList, TReview, TReviewList, TState, TUserAuthorisation, TUserData } from '../types';
+import { TAppDispatch, TCommentData, TFavorite, TOfferFull, TOfferList, TReview, TReviewList, TUserAuthorisation, TUserData } from '../types';
 import { AxiosInstance } from 'axios';
-import { setOffersLoadedStatus, fullOffersList, setError, setAuthStatus, setOfferLoadStatus, setFullOffer, setNearest, setReviewsLoadStatus, setReviewsList, addReview, setFavoritesLoadStatus, fullFavoritesList, changeOffers, changeFavorites, setUser, updateOffer, setReviewPostStatus } from './action';
-import { AuthorizationStatus, OFFERS_LOADED_STATUS, TIMEOUT_SHOW_ERROR } from '../consts';
 import { dropToken, saveToken } from '../services/token';
+import { State } from '.';
 
-export const fetchOffersList = createAsyncThunk<void, undefined, {
+export const fetchOffersList = createAsyncThunk<TOfferList, undefined, {
   dispatch: TAppDispatch;
-  state: TState;
+  state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchOffers',
-  async (_arg, {dispatch, extra: api}) => {
-    dispatch(setOffersLoadedStatus(OFFERS_LOADED_STATUS[1]));
-    try {
-      const {data} = await api.get<TOfferList>('/offers');
-      dispatch(setOffersLoadedStatus(OFFERS_LOADED_STATUS[2]));
-      dispatch(fullOffersList(data));
-    } catch {
-      dispatch(setOffersLoadedStatus(OFFERS_LOADED_STATUS[3]));
-    }
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<TOfferList>('/offers');
+    return data;
   }
 );
 
-export const clearError = createAsyncThunk(
-  'data/clearError',
-  (_arg, {dispatch}) => {
-    setTimeout(
-      () => dispatch(setError(null)),
-      TIMEOUT_SHOW_ERROR,
-    );
-  },
-);
 
-
-export const fetchOffer = createAsyncThunk<void, string, {
+export const fetchOffer = createAsyncThunk<TOfferFull, string, {
   dispatch: TAppDispatch;
-  state: TState;
+  state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchOffer',
-  async (id, {dispatch, extra: api}) => {
-    dispatch(setOfferLoadStatus(OFFERS_LOADED_STATUS[1]));
-    try {
-      const {data} = await api.get<TOfferFull>(`/offers/${id}`);
-      dispatch(setOfferLoadStatus(OFFERS_LOADED_STATUS[2]));
-      dispatch(setFullOffer(data));
-    } catch {
-      dispatch(setOfferLoadStatus(OFFERS_LOADED_STATUS[3]));
-    }
+  async (id, {extra: api}) => {
+    const {data} = await api.get<TOfferFull>(`/offers/${id}`);
+    return data;
   }
 );
 
 
-export const fetchNearest = createAsyncThunk<void, string, {
+export const fetchNearest = createAsyncThunk<TOfferList, string, {
   dispatch: TAppDispatch;
-  state: TState;
+  state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchNearby',
-  async (id, {dispatch, extra: api}) => {
-    dispatch(setOffersLoadedStatus(OFFERS_LOADED_STATUS[1]));
-    try {
-      const {data} = await api.get<TOfferList>(`/offers/${id}/nearby`);
-      dispatch(setOffersLoadedStatus(OFFERS_LOADED_STATUS[2]));
-      dispatch(setNearest(data));
-    } catch {
-      dispatch(setOffersLoadedStatus(OFFERS_LOADED_STATUS[3]));
-    }
+  async (id, {extra: api}) => {
+    const {data} = await api.get<TOfferList>(`/offers/${id}/nearby`);
+    return data;
   }
 );
 
 
-export const fetchReviews = createAsyncThunk<void, string, {
+export const fetchReviews = createAsyncThunk<TReviewList, string, {
   dispatch: TAppDispatch;
-  state: TState;
+  state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchReviews',
-  async (id, {dispatch, extra: api}) => {
-    dispatch(setReviewsLoadStatus(OFFERS_LOADED_STATUS[1]));
-    try {
-      const {data} = await api.get<TReviewList>(`/comments/${id}`);
-      dispatch(setReviewsLoadStatus(OFFERS_LOADED_STATUS[2]));
-      dispatch(setReviewsList(data));
-    } catch {
-      dispatch(setReviewsLoadStatus(OFFERS_LOADED_STATUS[3]));
-    }
+  async (id, {extra: api}) => {
+    const {data} = await api.get<TReviewList>(`/comments/${id}`);
+    return data;
   }
 );
 
 
-export const postReview = createAsyncThunk<void, TCommentData, {
+export const postReview = createAsyncThunk<TReview, TCommentData, {
   dispatch: TAppDispatch;
-  state: TState;
+  state: State;
   extra: AxiosInstance;
 }>(
   'data/postReviews',
-  async ({id, comment, rating}, {dispatch, extra: api}) => {
-    dispatch(setReviewPostStatus(OFFERS_LOADED_STATUS[1]));
-    try {
-      const {data} = await api.post<TReview>(`/comments/${id}`, {comment, rating});
-      dispatch(setReviewPostStatus(OFFERS_LOADED_STATUS[2]));
-      dispatch(addReview(data));
-    } catch {
-      dispatch(setReviewPostStatus(OFFERS_LOADED_STATUS[3]));
-    }
+  async ({id, comment, rating}, {extra: api}) => {
+    const {data} = await api.post<TReview>(`/comments/${id}`, {comment, rating});
+    return data;
   }
 );
 
 
-export const fetchFavoritesList = createAsyncThunk<void, undefined, {
+export const fetchFavoritesList = createAsyncThunk<TOfferList, undefined, {
   dispatch: TAppDispatch;
-  state: TState;
+  state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchFavorites',
-  async (_arg, {dispatch, extra: api}) => {
-    dispatch(setFavoritesLoadStatus(OFFERS_LOADED_STATUS[1]));
-    try {
-      const {data} = await api.get<TOfferList>('/favorite');
-      dispatch(setFavoritesLoadStatus(OFFERS_LOADED_STATUS[2]));
-      dispatch(fullFavoritesList(data));
-    } catch {
-      dispatch(setFavoritesLoadStatus(OFFERS_LOADED_STATUS[3]));
-    }
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<TOfferList>('/favorite');
+    return data;
   }
 );
 
 
-export const updateFavoriteStatus = createAsyncThunk<void, TFavorite, {
+export const updateFavoriteStatus = createAsyncThunk<TOfferFull, TFavorite, {
   dispatch: TAppDispatch;
-  state: TState;
+  state: State;
   extra: AxiosInstance;
 }>(
   'data/updFavorites',
-  async ({id, status}, {dispatch, extra: api}) => {
-    dispatch(setFavoritesLoadStatus(OFFERS_LOADED_STATUS[1]));
-    try {
-      await api.post<TOfferList>(`/favorite/${id}/${status}`);
-      dispatch(setFavoritesLoadStatus(OFFERS_LOADED_STATUS[2]));
-      dispatch(updateOffer({id, status}));
-      dispatch(changeOffers({id, status}));
-      dispatch(changeFavorites({id, status}));
-    } catch {
-      dispatch(setFavoritesLoadStatus(OFFERS_LOADED_STATUS[3]));
-    }
+  async ({id, status}, {extra: api}) => {
+    const {data} = await api.post<TOfferFull>(`/favorite/${id}/${status}`);
+    return data;
   }
 );
 
 
-export const login = createAsyncThunk<void, TUserData, {
+export const login = createAsyncThunk<TUserAuthorisation, TUserData, {
   dispatch: TAppDispatch;
-  state: TState;
+  state: State;
   extra: AxiosInstance;
 }>(
   'user/login',
   async ({email, password}, {dispatch, extra: api}) => {
-    try {
-      const {data} = await api.post<TUserAuthorisation>('/login', {email, password});
-      dispatch(setAuthStatus(AuthorizationStatus.Auth));
-      saveToken(data.token);
-      dispatch(fetchFavoritesList());
-      dispatch(setUser(data));
-    } catch {
-      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
-    }
-
+    const {data} = await api.post<TUserAuthorisation>('/login', {email, password});
+    saveToken(data.token);
+    dispatch(fetchFavoritesList());
+    return data;
   }
 );
 
 
-export const checkLogin = createAsyncThunk<void, undefined, {
+export const checkLogin = createAsyncThunk<TUserAuthorisation, undefined, {
   dispatch: TAppDispatch;
-  state: TState;
+  state: State;
   extra: AxiosInstance;
 }>(
   'user/checklogin',
   async (_arg, {dispatch, extra: api}) => {
-    try {
-      const {data} = await api.get<TUserAuthorisation>('/login');
-      dispatch(setAuthStatus(AuthorizationStatus.Auth));
-      dispatch(fetchFavoritesList());
-      dispatch(setUser(data));
-    } catch {
-      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
-    }
+    const {data} = await api.get<TUserAuthorisation>('/login');
+    dispatch(fetchFavoritesList());
+    return data;
   }
 );
 
 
 export const logout = createAsyncThunk<void, undefined, {
   dispatch: TAppDispatch;
-  state: TState;
+  state: State;
   extra: AxiosInstance;
 }>(
   'user/logout',
-  async (_arg, {dispatch, extra: api}) => {
-    try {
-      await api.delete('/logout');
-      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
-      dispatch(setUser(null));
-      dropToken();
-    } catch {
-      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
-    }
+  async (_arg, {extra: api}) => {
+    await api.delete('/logout');
+    dropToken();
   }
 );

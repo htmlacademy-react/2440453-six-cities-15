@@ -10,7 +10,7 @@ function NearbyOffers({offers}: TNearbyOffersProps) : JSX.Element {
     <div className="container">
       <section className="near-places places">
         <h2 className="near-places__title">Other places in the neighbourhood</h2>
-        <OfferList listClassName={'near-places__list places__list'} offerList={offers} cardSize={SIZES.offers} prefixClass={'near-places'}/>
+        {offers.length > 0 && <OfferList listClassName={'near-places__list places__list'} offerList={offers} cardSize={SIZES.offers} prefixClass={'near-places'}/>}
       </section>
     </div>
   );

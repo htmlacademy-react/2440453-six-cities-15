@@ -1,9 +1,9 @@
 import { useRef, useEffect } from 'react';
-import useMap from '../../hooks/use-map';
-import 'leaflet/dist/leaflet.css';
 import leaflet, { layerGroup } from 'leaflet';
+import useMap from '../../hooks/use-map';
 import { CITY_LIST_LOCATION, MAP_CENTER_TYPES, URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../consts';
 import { TCityName, TMapCenterType, TOfferList } from '../../types';
+import 'leaflet/dist/leaflet.css';
 
 type TMapProps = {
   activeOfferId: string | null;

@@ -2,13 +2,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { RouteList } from '../../consts';
 import { randomCity } from '../../utils';
 import { useAppDispatch } from '../../hooks';
-import { changeCity } from '../../store/action';
+import { changeCity } from '../../store';
 
 function NotFoundPage() : JSX.Element {
   const city = randomCity();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const onClick = () => {
+  const handleClick = () => {
     dispatch(changeCity({city:city}));
     navigate(RouteList.Root);
   };
@@ -24,7 +24,7 @@ function NotFoundPage() : JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <div className="locations__item-link" onClick={onClick}>
+              <div className="locations__item-link" onClick={handleClick}>
                 <span>{city}</span>
               </div>
             </div>

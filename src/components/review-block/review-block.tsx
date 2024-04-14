@@ -1,6 +1,8 @@
-import { AuthorizationStatus } from '../../consts';
+import { AuthorizationStatus, OFFERS_LOADED_STATUS } from '../../consts';
 import { useAppSelector } from '../../hooks';
+import { getReviews, getReviewsLoadStatus } from '../../store';
 import CommentForm from '../comment-form/comment-form';
+import ErrorMessage from '../error-message/error-message';
 import ReviewList from '../review-list/review-list';
 
 type TReviewBlockProps = {
@@ -8,12 +10,13 @@ type TReviewBlockProps = {
   offerId: string;
 }
 function ReviewBlock({authStatus, offerId}: TReviewBlockProps) : JSX.Element {
-  const reviewList = useAppSelector((state) => state.reviewsList);
-  // const reviewsLoadStatus = useAppSelector((state) => state.reviewsLoadStatus); //если загрузка - блок загрузки, если ошибка - блок ошибки,
+  const reviewsList = useAppSelector(getReviews);
+  const reviewsLoadStatus = useAppSelector(getReviewsLoadStatus);
   const isAuth = authStatus === AuthorizationStatus.Auth;
   return(
     <section className="offer__reviews reviews">
-      {reviewList && <ReviewList reviewList={reviewList}/>}
+      {reviewsLoadStatus === OFFERS_LOADED_STATUS[2] && <ReviewList reviewsList={reviewsList}/>}
+      {reviewsLoadStatus === OFFERS_LOADED_STATUS[3] && <ErrorMessage/>}
       {isAuth && <CommentForm offerId={offerId}/>}
     </section>
   );

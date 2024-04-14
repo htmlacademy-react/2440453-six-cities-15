@@ -4,7 +4,7 @@ type TBlockEmptyProps = {
   activeCity: TCityName;
 }
 
-function BlockEmpty({activeCity}: TBlockEmptyProps) : JSX.Element {
+export default function BlockEmpty({activeCity}: TBlockEmptyProps) : JSX.Element {
   return (
     <div className="cities__status-wrapper tabs__content">
       <b className="cities__status">No places to stay available</b>
@@ -12,5 +12,3 @@ function BlockEmpty({activeCity}: TBlockEmptyProps) : JSX.Element {
     </div>
   );
 }
-
-export default BlockEmpty;

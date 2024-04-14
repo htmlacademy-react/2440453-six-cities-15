@@ -1,8 +1,8 @@
+import React, { useState } from 'react';
 import { SortItems } from '../../consts';
 import { useAppDispatch } from '../../hooks';
-import { changeActiveSort } from '../../store/action';
+import { changeActiveSort } from '../../store';
 import SortItem from './sort-item';
-import { useState } from 'react';
 
 type TSortBlockProps = {
   activeSort: SortItems;
@@ -17,13 +17,13 @@ function SortBlock({activeSort}: TSortBlockProps) : JSX.Element {
     dispatch(changeActiveSort({sortItem: newItem}));
   };
 
-  const listOnClick = () => {
+  const handleListClick = () => {
     changeOpenStatus(!isOpen);
   };
 
   const sortItems = Object.values(SortItems).map((value) => <SortItem sortType={value} isActive={activeSort === value} key={value} onClick={handleSortItemChange}/>);
   return (
-    <form className="places__sorting" action="#" method="get" onClick={listOnClick}>
+    <form className="places__sorting" action="#" method="get" onClick={handleListClick}>
       <span className="places__sorting-caption">Sort by </span>
       <span className="places__sorting-type" tabIndex={0} >
         {activeSort}
@@ -38,4 +38,4 @@ function SortBlock({activeSort}: TSortBlockProps) : JSX.Element {
   );
 }
 
-export default SortBlock;
+export default React.memo(SortBlock);

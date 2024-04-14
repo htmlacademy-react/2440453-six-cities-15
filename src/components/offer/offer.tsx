@@ -1,14 +1,14 @@
+import { useNavigate } from 'react-router-dom';
+import { TOfferFull, TOfferList } from '../../types';
+import { AuthorizationStatus, MAP_CENTER_TYPES, RouteList } from '../../consts';
+import { useAppDispatch } from '../../hooks';
+import { updateFavoriteStatus } from '../../store';
+import { calcBookmarkActiveClass, calcHiddenPremiumClass, changeFirstSym, setCorrectEnding } from '../../utils';
 import ReviewBlock from '../../components/review-block/review-block';
 import Map from '../map/map';
-import { TOfferFull, TOfferList } from '../../types';
-import { calcBookmarkActiveClass, calcHiddenPremiumClass, changeFirstSym, setCorrectEnding } from '../../utils';
 import GoodsList from './goods-list';
 import Gallery from '../gallery/gallery';
 import HostInfo from './host-info';
-import { AuthorizationStatus, MAP_CENTER_TYPES, RouteList } from '../../consts';
-import { useAppDispatch } from '../../hooks';
-import { updateFavoriteStatus } from '../../store/api-actions';
-import { useNavigate } from 'react-router-dom';
 
 type TOfferProps = {
   offer: TOfferFull;

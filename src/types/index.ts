@@ -2,7 +2,7 @@ import { THost, TOffer, TOfferList, TOfferFull, TCardSizes, TOfferLoadStatus, TF
 import { TCity, TLocation, TCityName, TMapCenterType } from './city';
 import { TUser, TAuthorisation, TUserData, TUserAuthorisation } from './user';
 import { TCommentData, TOfferReview, TReview, TReviewList } from './review';
-import { TState, TAppDispatch } from './state';
+import { TAppDispatch } from './state';
 import { TDetailMessageType } from './error';
 
 
@@ -25,7 +25,6 @@ export type {
   TReview,
   TReviewList,
   TMapCenterType,
-  TState,
   TAppDispatch,
   TDetailMessageType,
   TFavorite,
