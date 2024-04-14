@@ -1,9 +1,7 @@
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
-
 import { useAppSelector } from '../../hooks';
 import { RouteList } from '../../consts';
 import { getAuthStatus, getOffers, store, checkLogin, fetchOffersList } from '../../store';
-
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
 import MainPage from '../../pages/main-page/main-page';
