@@ -12,7 +12,7 @@ type TOfferCardProps = {
   onMouseEnter?: React.MouseEventHandler;
   onMouseLeave?: React.MouseEventHandler;
 }
-function OfferCard({offer, prefixClass, cardSizes, onMouseEnter, onMouseLeave}: TOfferCardProps): JSX.Element {//статус обновления и показывать ошибку при добавлении в избранное
+function OfferCard({offer, prefixClass, cardSizes, onMouseEnter, onMouseLeave}: TOfferCardProps): JSX.Element {
   const {title, id, isFavorite, isPremium, previewImage, price, rating, type} = offer;
   const {width, height} = cardSizes;
   const ratPersent = calcRaitingPersent(rating);

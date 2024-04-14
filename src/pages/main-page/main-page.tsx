@@ -15,8 +15,8 @@ function MainPage({offersList}: TMainPageProps) : JSX.Element {
   const dispatch = useAppDispatch();
   const cityName = useAppSelector(getCity);
   const authStatus = useAppSelector(getAuthStatus);
-  const cityOffersList = offersList ? offersList.filter((item) => item.city.name === cityName) : offersList;
-  const mainPageClass = cityOffersList && cityOffersList.length > 0 ? 'page__main page__main--index page__main--index-empty' : 'page page--gray page--main';
+  const cityOffersList = offersList ? offersList.filter((item) => item.city.name === cityName) : [];
+  const mainPageClass = cityOffersList.length > 0 ? 'page page--gray page--main' : 'page__main page__main--index page__main--index-empty';
   const loadingStatus = useAppSelector(getOffersLoadStatus);
 
   const handleCityClick = (isSelected: boolean, newCity: TCityName) => {
