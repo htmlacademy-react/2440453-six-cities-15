@@ -20,6 +20,7 @@ function LoginPage() : JSX.Element {
   };
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    console.log(passwordRef.current !== null);
     if (emailRef.current !== null && passwordRef.current !== null) {
       dispatch(login({email: emailRef.current.value, password: passwordRef.current.value}));
       if(authStatus === AuthorizationStatus.Auth) {
