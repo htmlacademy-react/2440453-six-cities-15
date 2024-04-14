@@ -16,7 +16,7 @@ function MainPage({offersList}: TMainPageProps) : JSX.Element {
   const cityName = useAppSelector(getCity);
   const authStatus = useAppSelector(getAuthStatus);
   const cityOffersList = offersList ? offersList.filter((item) => item.city.name === cityName) : [];
-  const mainPageClass = cityOffersList.length > 0 ? 'page page--gray page--main' : 'page__main page__main--index page__main--index-empty';
+  const mainPageClass = cityOffersList.length > 0 ? 'page__main page__main--index' : 'page__main page__main--index page__main--index-empty';
   const loadingStatus = useAppSelector(getOffersLoadStatus);
 
   const handleCityClick = (isSelected: boolean, newCity: TCityName) => {
@@ -25,16 +25,16 @@ function MainPage({offersList}: TMainPageProps) : JSX.Element {
     }
   };
   let block : JSX.Element;
-  if (cityOffersList && cityOffersList.length > 0 && loadingStatus === OFFERS_LOADED_STATUS[2]) {
+  if (loadingStatus !== OFFERS_LOADED_STATUS[0] && loadingStatus !== OFFERS_LOADED_STATUS[1]) {
     block = <OfferListBlock offersList={cityOffersList} activeCity={cityName}/>;
   } else {
     block = <LoadingBlock/>;
   }
 
   return (
-    <div className={mainPageClass}>
+    <div className='page page--gray page--main'>
       <Header authStatus={authStatus}/>
-      <main className="page__main page__main--index">
+      <main className={mainPageClass}>
         <CitiesList activeCity={cityName} handleCityClick={handleCityClick}/>
         {block}
       </main>
