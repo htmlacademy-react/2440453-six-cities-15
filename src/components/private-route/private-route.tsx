@@ -3,15 +3,13 @@ import { AuthorizationStatus, RouteList } from '../../consts';
 
 type PrivateRouteProps = {
   children: JSX.Element;
-  authStatus: AuthorizationStatus;
-  reverseOperation?: boolean;
   navAddress: RouteList;
+  authStatus: AuthorizationStatus;
 }
 
-function PrivateRoute({children, authStatus, navAddress, reverseOperation = false}: PrivateRouteProps): JSX.Element {
-  const condition = reverseOperation ? authStatus !== AuthorizationStatus.Auth : authStatus === AuthorizationStatus.Auth;
+function PrivateRoute({children, navAddress, authStatus}: PrivateRouteProps): JSX.Element {
   return (
-    condition ? children : <Navigate to={navAddress}/>
+    authStatus === AuthorizationStatus.Auth ? children : <Navigate to={navAddress}/>
   );
 }
 
