@@ -14,6 +14,7 @@ function FavoritesPage() : JSX.Element {
   const authStatus = useAppSelector(getAuthStatus);
   const dispatch = useAppDispatch();
   let block = <LoadingBlock/>;
+  const pageClassName = offerList.length === 0 ? 'page page--favorites-empty' : 'page';
 
   useEffect(() => {
     dispatch(fetchFavoritesList());
@@ -28,7 +29,7 @@ function FavoritesPage() : JSX.Element {
   }
 
   return (
-    <div className="page">
+    <div className={pageClassName}>
       <Header authStatus={authStatus}/>
       {block}
       <Footer className={offerList ? 'footer container' : 'footer'}/>

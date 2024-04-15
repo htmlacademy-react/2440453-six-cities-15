@@ -10,7 +10,7 @@ function Favorites({offerList}: TFavoritesProps) : JSX.Element {
   const fullCondition = offerList && offerList.length > 0;
   const favorites = fullCondition ? <FavoritesList offerList={offerList}/> : <FavoritesEmpty/>;
   const emptyMainClass = fullCondition ? '' : ' page__main--favorites-empty';
-  const emptySectionClass = fullCondition ? '' : ' page__main--favorites-empty';
+  const emptySectionClass = fullCondition ? '' : ' favorites--empty';
   const title = fullCondition ? 'Saved listing' : 'Favorites (empty)';
   const headerClass = fullCondition ? 'favorites__title' : 'visually-hidden';
   return (

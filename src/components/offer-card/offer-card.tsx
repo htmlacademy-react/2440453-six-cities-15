@@ -15,12 +15,12 @@ type TOfferCardProps = {
 function OfferCard({offer, prefixClass, cardSizes, onMouseEnter, onMouseLeave}: TOfferCardProps): JSX.Element {
   const {title, id, isFavorite, isPremium, previewImage, price, rating, type} = offer;
   const {width, height} = cardSizes;
-  const ratPersent = calcRaitingPersent(rating);
-  const classNamePremium = calcHiddenPremiumClass(isPremium, 'place-card__mark');
-  const classNameActive = calcBookmarkActiveClass(isFavorite ? isFavorite : false, 'place-card__bookmark-button');
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const authStatus = useAppSelector(getAuthStatus);
+  const ratPersent = calcRaitingPersent(rating);
+  const classNamePremium = calcHiddenPremiumClass(isPremium, 'place-card__mark');
+  const classNameActive = calcBookmarkActiveClass(isFavorite && authStatus === AuthorizationStatus.Auth ? isFavorite : false, 'place-card__bookmark-button');
 
   const onClick = () => {
     if (authStatus === AuthorizationStatus.Auth) {

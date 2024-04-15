@@ -5,7 +5,7 @@ import { checkLogin, login, logout } from '../api-actions';
 
 
 const initialState: TUserProcess = {
-  authorizationStatus: AuthorizationStatus.NoAuth,
+  authorizationStatus: AuthorizationStatus.Auth,
   user: null,
 };
 

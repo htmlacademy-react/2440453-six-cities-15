@@ -27,7 +27,10 @@ export const offersData = createSlice({
       .addCase(updateFavoriteStatus.fulfilled, (state, action) => {
         const el = action.payload;
         const ind = state.offers.findIndex((item) => item.id === el.id);
-        state.offers[ind].isFavorite = Boolean(action.payload.isFavorite);
+        if (ind) {
+          state.offers[ind].isFavorite = Boolean(action.payload.isFavorite);
+        }
+
       });
   }
 });
