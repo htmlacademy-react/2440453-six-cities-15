@@ -21,7 +21,7 @@ function App() : JSX.Element {
       <Routes>
         <Route path={RouteList.Root} element={<MainPage offersList={offerList}/>}/>
         <Route path={RouteList.Login} element={<PrivateRouteLogin navAddress={RouteList.Root} authStatus={authStatus}><LoginPage/></PrivateRouteLogin>}/>
-        <Route path={RouteList.Favourites} element={<PrivateRoute navAddress={RouteList.Root} authStatus={authStatus}><FavoritesPage/></PrivateRoute>}/>
+        <Route path={RouteList.Favourites} element={<PrivateRoute navAddress={RouteList.Login} authStatus={authStatus}><FavoritesPage/></PrivateRoute>}/>
         <Route path={RouteList.Offer} element={<OfferPage/>}/>
         <Route path={RouteList.Unknown} element={<NotFoundPage/>}/>
       </Routes>

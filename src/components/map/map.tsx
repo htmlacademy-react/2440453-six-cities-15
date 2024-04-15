@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import leaflet, { layerGroup } from 'leaflet';
+import leaflet, { Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/use-map';
 import { CITY_LIST_LOCATION, MAP_CENTER_TYPES, URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../consts';
 import { TCityName, TMapCenterType, TOfferList } from '../../types';
@@ -40,20 +40,20 @@ function Map({offers, activeOfferId, prefixName, type, cityName}: TMapProps): JS
     }
   }, [map, center]);
   useEffect(() => {
-    if (offers) {
-      if (map) {
-        const markerLayer = layerGroup().addTo(map);
-        offers.forEach((offer) => {
-          leaflet
-            .marker({
-              lat: offer.location.latitude,
-              lng: offer.location.longitude,
-            }, {
-              icon: offer.id === activeOfferId ? currentCustomIcon : defaultCustomIcon,
-            })
-            .addTo(markerLayer);
+    if (offers && map) {
+      const markerLayer = layerGroup().addTo(map);
+      offers.forEach((offer) => {
+        const marker = new Marker({
+          lat: offer.location.latitude,
+          lng: offer.location.longitude,
+        }, {
+          icon: offer.id === activeOfferId ? currentCustomIcon : defaultCustomIcon,
         });
-      }
+        marker.addTo(markerLayer);
+      });
+      return () => {
+        map.removeLayer(markerLayer);
+      };
     }
   }, [map, offers, activeOfferId, currentCustomIcon, defaultCustomIcon]);
 
